@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 
 const userRoutes = require('./users/userRoutes.js');
+const gameRoutes = require('./games/gameRoutes.js');
 
 const server = express();
 
@@ -16,6 +17,7 @@ server.get('/', (req, res) => {
 });
 
 server.use('/user', userRoutes);
+server.use('/game', gameRoutes);
 
 const port = process.env.PORT || 5000;
 
