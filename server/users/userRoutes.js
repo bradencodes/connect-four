@@ -19,7 +19,7 @@ router.route('/create')
     })
 
 //find a user
-//input: _id
+//input: the _id of the user
 //output: the user matching the _id
 router.route('/get')
     .get((req, res) => {
@@ -36,7 +36,7 @@ router.route('/get')
     })
 
 //delete a user
-//input: _id
+//input: the _id of the user
 //output: the deleted user
 router.route('/delete')
     .delete((req, res) => {
