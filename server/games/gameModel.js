@@ -18,4 +18,11 @@ const GameSchema = new mongoose.Schema({
     col7: [],
 });
 
+//before creating a new game, randomly decide who starts
+GameSchema.pre('save', function(next) {
+    const randNum = Math.random();
+    this.turn = randNum < 0.5 ? "black" : "red";
+    return next();
+});
+
 module.exports = mongoose.model('Game', GameSchema);
