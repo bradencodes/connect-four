@@ -55,5 +55,35 @@ router.route('/get')
             })
     });
 
+//update
+//input: player_id, game_id, column of move
+//output: the updated game
+router.route('/update')
+    .put((req, res) => {
+        const { player_id, game_id, col} = req.body;
+
+        //find the oldGame state to check that the move is valid
+        Game.findById(game_id)
+            .then(oldGame => {
+                //check that it is the player's turn, and there is space in the column
+                const isTurn = oldGame[oldGame.turn] == player_id;
+                const isSpace = oldGame[`col${col}`].length < 6;
+
+                if (isTurn && isSpace){
+                    const newTurn = oldGame.turn === "red" ? "black" : "red";
+                    Game.findByIdAndUpdate(game_id, { $push: {[`col${col}`]: oldGame.turn}, turn: newTurn }, {new: true})
+                        .then(updatedGame => {
+                            if (updatedGame) res.status(200).json(updatedGame)
+                            else res.status(404).json({ errorMessage: 'Game not found' });
+                        })
+                        .catch(err => {
+                            res.status(500).json({ errorMessage: 'Database failed to update game' });
+                        })
+                }
+                else res.status(400).json({ errorMessage: 'Invalid move. Try again' });
+            })
+            .catch(err => res.status(500).json({ errorMessage: 'Server failed to find game' }));
+    });
+
 
 module.exports = router;
