@@ -6,6 +6,7 @@ const GameSchema = new mongoose.Schema({
     black: { type: ObjectId, ref: 'User' },
     red: { type: ObjectId, ref: 'User' },
     turn: String,
+    winner: { type: String, default: "none" },
 
     //a representation of the game board split into columns
     col1: [],
