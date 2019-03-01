@@ -76,37 +76,40 @@ function checkWinner(game) {
         }
     }
 
-    console.log(board);
-
     //a helper function to check if a line is 4 in a row
     function checkLine(a, b, c, d) {
         // Check first cell non-zero and all cells match
         return ((a != 0) && (a === b) && (a === c) && (a === d));
     }
 
-    // Check down
+    //check down
     for (r = 0; r < 3; r++)
         for (c = 0; c < 7; c++)
             if (checkLine(board[r][c], board[r+1][c], board[r+2][c], board[r+3][c]))
                 return board[r][c];
 
-    // Check right
+    //check right
     for (r = 0; r < 6; r++)
         for (c = 0; c < 4; c++)
             if (checkLine(board[r][c], board[r][c+1], board[r][c+2], board[r][c+3]))
                 return board[r][c];
 
-    // Check down-right
+    //check down-right
     for (r = 0; r < 3; r++)
         for (c = 0; c < 4; c++)
             if (checkLine(board[r][c], board[r+1][c+1], board[r+2][c+2], board[r+3][c+3]))
                 return board[r][c];
 
-    // Check down-left
+    //check down-left
     for (r = 3; r < 6; r++)
         for (c = 0; c < 4; c++)
             if (checkLine(board[r][c], board[r-1][c+1], board[r-2][c+2], board[r-3][c+3]))
                 return board[r][c];
+
+    //check for a tie
+    if (game.col1.length + game.col2.length + game.col3.length + game.col4.length
+        + game.col5.length + game.col6.length + game.col7.length === 42)
+        return "tie";
 
     return "none";
 }
@@ -132,7 +135,6 @@ router.route('/update')
                         .then(updatedGame => {
                             //check if the new move wins or ties
                             let newWinner = checkWinner(updatedGame);
-                            console.log('newWinner: ', newWinner);
                             if (newWinner !== "none") {
                                 Game.findByIdAndUpdate(game_id, {winner: newWinner}, {new: true})
                                     .then(finishedGame => res.status(200).json(finishedGame))
