@@ -55,7 +55,63 @@ router.route('/get')
             })
     });
 
-//update
+function checkWinner(game) {
+    //create an empty board to be filled
+    let board = [
+        [0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0],
+    ];
+
+    //loop through each column of the game to fill the board
+    for (c = 0 ; c < 7 ; c++) {
+        //fill the column to correspond to the game columns
+        //note: this fills the columns upside down, but it will still work to determine the winner
+        for (r = 0 ; r < game[`col${c+1}`].length ; r++) {
+            let gameColor = game[`col${c+1}`][r]
+            board[r][c] = gameColor;
+        }
+    }
+
+    console.log(board);
+
+    //a helper function to check if a line is 4 in a row
+    function checkLine(a, b, c, d) {
+        // Check first cell non-zero and all cells match
+        return ((a != 0) && (a === b) && (a === c) && (a === d));
+    }
+
+    // Check down
+    for (r = 0; r < 3; r++)
+        for (c = 0; c < 7; c++)
+            if (checkLine(board[r][c], board[r+1][c], board[r+2][c], board[r+3][c]))
+                return board[r][c];
+
+    // Check right
+    for (r = 0; r < 6; r++)
+        for (c = 0; c < 4; c++)
+            if (checkLine(board[r][c], board[r][c+1], board[r][c+2], board[r][c+3]))
+                return board[r][c];
+
+    // Check down-right
+    for (r = 0; r < 3; r++)
+        for (c = 0; c < 4; c++)
+            if (checkLine(board[r][c], board[r+1][c+1], board[r+2][c+2], board[r+3][c+3]))
+                return board[r][c];
+
+    // Check down-left
+    for (r = 3; r < 6; r++)
+        for (c = 0; c < 4; c++)
+            if (checkLine(board[r][c], board[r-1][c+1], board[r-2][c+2], board[r-3][c+3]))
+                return board[r][c];
+
+    return "none";
+}
+
+//update a game
 //input: player_id, game_id, column of move
 //output: the updated game
 router.route('/update')
@@ -65,15 +121,24 @@ router.route('/update')
         //find the oldGame state to check that the move is valid
         Game.findById(game_id)
             .then(oldGame => {
-                //check that it is the player's turn, and there is space in the column
+                //check that the game isn't won, it is the player's turn, there is space in the column
+                const isGoing = oldGame.winner === "none";
                 const isTurn = oldGame[oldGame.turn] == player_id;
                 const isSpace = oldGame[`col${col}`].length < 6;
 
-                if (isTurn && isSpace){
+                if (isGoing && isTurn && isSpace){
                     const newTurn = oldGame.turn === "red" ? "black" : "red";
                     Game.findByIdAndUpdate(game_id, { $push: {[`col${col}`]: oldGame.turn}, turn: newTurn }, {new: true})
                         .then(updatedGame => {
-                            if (updatedGame) res.status(200).json(updatedGame)
+                            //check if the new move wins or ties
+                            let newWinner = checkWinner(updatedGame);
+                            console.log('newWinner: ', newWinner);
+                            if (newWinner !== "none") {
+                                Game.findByIdAndUpdate(game_id, {winner: newWinner}, {new: true})
+                                    .then(finishedGame => res.status(200).json(finishedGame))
+                            }
+
+                            else if (updatedGame) res.status(200).json(updatedGame)
                             else res.status(404).json({ errorMessage: 'Game not found' });
                         })
                         .catch(err => {
