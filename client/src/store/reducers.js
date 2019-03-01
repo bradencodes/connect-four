@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 
 const initialState = {
-    username: null,
+    user_id: null,
     room: null,
     loading: true
 }

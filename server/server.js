@@ -12,15 +12,15 @@ server.listen(port, () => {
     console.log(`\n=== API running on http://localhost:${port} ===\n`);
 })
 
-const userRoutes = require('./users/userRoutes.js');
-const gameRoutes = require('./games/gameRoutes.js');
-
 app.use(cors({ origin: 'http://localhost:3000' , credentials: true }));
 app.use(express.json());
 
 app.get('/', (req, res) => {
     res.status(200).json({ api: 'running...' })
 });
+
+const userRoutes = require('./users/userRoutes.js');
+const gameRoutes = require('./games/gameRoutes.js');
 
 app.use('/user', userRoutes);
 app.use('/game', gameRoutes);

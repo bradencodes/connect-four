@@ -7,7 +7,7 @@ const User = require('./userModel.js');
 //create a new user
 //input: none
 //output: the new user with `_id` and `games` fields
-router.route('/create')
+router.route('')
     .post((req, res) => {
         User.create({})
             .then(newUser => {
@@ -21,9 +21,9 @@ router.route('/create')
 //find a user
 //input: the _id of the user
 //output: the user matching the _id
-router.route('/get')
+router.route('')
     .get((req, res) => {
-        const { _id } = req.body;
+        const { _id } = req.query;
 
         User.findById(_id)
             .then(user => {
@@ -38,7 +38,7 @@ router.route('/get')
 //delete a user
 //input: the _id of the user
 //output: the deleted user
-router.route('/delete')
+router.route('')
     .delete((req, res) => {
         const { _id } = req.body;
 
