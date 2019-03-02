@@ -1,12 +1,17 @@
-import { combineReducers } from 'redux';
-
 const initialState = {
-    user_id: null,
-    room: null,
-    loading: true
+    game_id: null,
+    winner: 'none',
+    turn: null,
+    col1: [],
+    col2: [],
+    col3: [],
+    col4: [],
+    col5: [],
+    col6: [],
+    col7: []
 }
 
-const userReducer = (state = initialState, action) => {
+export default gameReducer = (state = initialState, action) => {
     switch(action.type) {
 
         case "SET_USER":
@@ -20,7 +25,3 @@ const userReducer = (state = initialState, action) => {
             return state;
     }
 }
-
-export default combineReducers({
-    user: userReducer
-})
