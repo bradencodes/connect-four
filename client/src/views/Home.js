@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import axios from 'axios';
+import { createUser, findUser } from '../store/actions/userActions.js';
 
 class Home extends Component {
     componentDidMount() {
@@ -8,17 +8,11 @@ class Home extends Component {
 
         if (user_id) {
             //check if the user has an open game
-            axios.get(`${process.env.REACT_APP_API_URL}/user?_id=${user_id}`) 
-                .then(res => {
-                    console.log('user: ', res.data);
-                })
+            this.props.findUser(user_id);
+            // window.location = '/room/' + this.props.user_id;
         } 
         else {
-            axios.post(`${process.env.REACT_APP_API_URL}/user`)
-                .then(res => {
-                    localStorage.setItem('USER_ID', res.data._id);
-                })
-                .catch(err => console.log(err));
+            this.props.createUser();
         }
     }
 
@@ -26,11 +20,16 @@ class Home extends Component {
         return (
             <div className="home-screen">
                 <h1>Connect 4</h1>
+                <h6>user_id: {this.props.user_id}</h6>
             </div>
         );
     }
 }
 
-const mapStateToProps = state => ({ user: state.user });
+const mapStateToProps = state => {
+    return { 
+        user_id: state.user_id 
+    }
+}
 
-export default connect(mapStateToProps)(Home);
+export default connect(mapStateToProps, { createUser, findUser })(Home);

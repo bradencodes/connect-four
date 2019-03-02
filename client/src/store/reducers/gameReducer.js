@@ -11,10 +11,10 @@ const initialState = {
     col7: []
 }
 
-export default gameReducer = (state = initialState, action) => {
+export const gameReducer = (state = initialState, action) => {
     switch(action.type) {
 
-        case "SET_USER":
+        case "":
             return {
                 ...state,
                 ...action.payload,
