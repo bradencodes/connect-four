@@ -61,7 +61,9 @@ class Home extends Component {
                         })
                 })
         }
+    }
 
+    componentDidUpdate() {
         //see if the user's last game is ongoing
         if (this.state.userIsValid && this.state.user.games.length > 0) {
             axios.get(`${process.env.REACT_APP_API_URL}/game?_id=${this.state.user.games[this.state.user.games.length-1]}`)
