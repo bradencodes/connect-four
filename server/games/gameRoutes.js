@@ -8,7 +8,7 @@ const User = require('../users/userModel.js');
 //create a new game
 //input: the _id of 2 users
 //output: the new game object
-router.route('/create')
+router.route('')
     .post((req, res) => {
         //randomly decide which player is what color
         const { player1_id, player2_id } = req.body;
@@ -41,9 +41,9 @@ router.route('/create')
 //find a game
 //input: the _id of the game
 //output: the matching game object
-router.route('/get')
+router.route('')
     .get((req, res) => {
-        const { _id } = req.body;
+        const { _id } = req.query;
 
         Game.findById(_id)
             .then(game => {
@@ -117,7 +117,7 @@ function checkWinner(game) {
 //update a game
 //input: player_id, game_id, column of move
 //output: the updated game
-router.route('/update')
+router.route('')
     .put((req, res) => {
         const { player_id, game_id, col} = req.body;
 
