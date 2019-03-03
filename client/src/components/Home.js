@@ -27,7 +27,7 @@ class Home extends Component {
         }
 
         //verify the user_id is valid
-        if (!this.state.userIsValid) {
+        if (this.state.userID && !this.state.userIsValid) {
             axios.get(`${process.env.REACT_APP_API_URL}/user?_id=${this.state.userID}`)
                 .then(res => {
                     //if user_id is valid, set userIsValid to true
