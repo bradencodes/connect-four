@@ -26,7 +26,7 @@ app.use('/user', userRoutes);
 app.use('/game', gameRoutes);
 
 mongoose.Promise = global.Promise;
-mongoose.connect(`mongodb://${process.env.MLAB_USER}:${process.env.MLAB_PASSWORD}@ds040349.mlab.com:40349/connectfour`, { useNewUrlParser: true }, (error) => {
+mongoose.connect(`mongodb://localhost:27017/connectfour`, { useNewUrlParser: true }, (error) => {
     if (error) console.log(error);
     else console.log("Mongoose connected to mLab connectfour DB");
 })

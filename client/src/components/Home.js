@@ -50,8 +50,15 @@ class Home extends Component {
                     }
                 })
                 .catch(err => {
-                    console.log(err);
-                    this.setState({ error: err })
+                    axios.post(`${process.env.REACT_APP_API_URL}/user`)
+                        .then(res => {
+                            localStorage.setItem('USER_ID', res.data._id);
+                            this.setState({ user: res.data, userIsValid: true, error: null });
+                        })
+                        .catch(err => {
+                            console.log(err);
+                            this.setState({ error: err })
+                        })
                 })
         }
 
