@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import reducers from './store/reducers/index.js';
 
-import Home from './views/Home.js';
+import Home from './components/Home.js';
 
 const store = createStore(reducers, compose(
                           applyMiddleware(thunk),

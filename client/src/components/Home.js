@@ -6,14 +6,13 @@ class Home extends Component {
     componentDidMount() {
         let user_id = localStorage.getItem('USER_ID');
 
-        if (user_id) {
-            //check if the user has an open game
-            this.props.findUser(user_id);
-            // window.location = '/room/' + this.props.user_id;
-        } 
-        else {
+        if (!user_id) {
             this.props.createUser();
+
+            user_id = localStorage.getItem('USER_ID');
         }
+
+        this.props.findUser(user_id);
     }
 
     render() {
@@ -28,8 +27,10 @@ class Home extends Component {
 
 const mapStateToProps = state => {
     return { 
-        user_id: state.user_id 
+        userID: state.userID 
     }
 }
 
-export default connect(mapStateToProps, { createUser, findUser })(Home);
+const mapActionsToProps = { createUser, findUser };
+
+export default connect(mapStateToProps, mapActionsToProps)(Home);

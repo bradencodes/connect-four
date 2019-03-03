@@ -3,7 +3,7 @@ import { FINDING_USER, FOUND_USER, CREATING_USER, CREATED_USER, ERROR } from '..
 const initialState = {
     creatingUser: false,
     findingUser: false,
-    user_id: null,
+    userID: null,
     error: null
 }
 
@@ -19,7 +19,7 @@ export const userReducer = (state = initialState, action) => {
             return Object.assign({}, state, {
                 creatingUser: false,
                 error: null,
-                user_id: action.payload
+                userID: action.payload
             })
 
         case FINDING_USER:
@@ -30,7 +30,7 @@ export const userReducer = (state = initialState, action) => {
         case FOUND_USER:
             return Object.assign({}, state, {
                 findingUser: false,
-                user_id: action.payload
+                userID: action.payload
             })
 
         case ERROR:
