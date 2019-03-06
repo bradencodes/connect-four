@@ -38,14 +38,22 @@ module.exports = (namespace) => {
                             User.findByIdAndUpdate(player2ID, { $push: {games: newGame._id} })
                                 .then(__ => {
                                     player1Socket.emit('matched', newGame);
-                                    player1Socket.emit('matched', newGame);
+                                    player2Socket.emit('matched', newGame);
                                 })
                         })
                 })
                 .catch(err => {
                     res.status(500).json({ errorMessage: "Server failed to create new game" });
-                })     
+                })
+
+            //remove the matched players from the lobby
+            delete lobby[player1ID];
+            delete lobby[player2ID];
+
+            users = Object.keys(lobby);
         }
+
+        runningLoop = false;
     }
 
     namespace.on('connect', socket => {
@@ -53,6 +61,8 @@ module.exports = (namespace) => {
 
         socket.on('joinLobby', (user) => {
             lobby[user._id] = socket;
+
+            matchingLoop();
         })
 
         socket.on('disconnect', () => {
