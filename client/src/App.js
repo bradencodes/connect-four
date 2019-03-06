@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { Route, withRouter } from 'react-router-dom';
 
 import Home from './components/Home.js';
+import Matching from './components/Matching.js';
 
 class App extends Component {
   constructor() {
@@ -12,23 +13,36 @@ class App extends Component {
         games: []
       },
       userIsValid: false,
+      game: {},
       error: null
     }
   }
 
-  updateState = (update) => {
+  updateAllState = (update) => {
     this.setState(update);
+  }
+
+  componentDidUpdate() {
+    if (this.state.userIsValid && !this.state.game._id) {
+      if (this.props.location.pathname !== '/matching') this.props.history.push('/matching');
+    }
   }
 
   render() {
     return (
-      <Router>
+      <div className='App'>
+
         <Route exact path="/" render={ (props) => { 
-          return(<Home {...props} state={this.state} updateState={this.updateState} />) 
+          return(<Home {...props} allState={this.state} updateAllState={this.updateAllState} />) 
         }} />
-      </Router>
+
+        <Route path="/matching" render={ (props) => { 
+          return(<Matching {...props} allState={this.state} updateAllState={this.updateAllState} />) 
+        }} />
+
+      </div>
     );
   }
 };
 
-export default App;
+export default withRouter(App);
