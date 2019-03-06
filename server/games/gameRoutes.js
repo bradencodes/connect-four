@@ -41,9 +41,9 @@ router.route('')
 //find a game
 //input: the _id of the game
 //output: the matching game object
-router.route('')
+router.route('/:_id')
     .get((req, res) => {
-        const { _id } = req.query;
+        const { _id } = req.params;
 
         Game.findById(_id)
             .then(game => {

@@ -31,7 +31,7 @@ class Home extends Component {
 
         //verify the user_id is valid
         if (this.state.user._id && !this.state.userIsValid) {
-            axios.get(`${process.env.REACT_APP_API_URL}/user?_id=${this.state.user._id}`)
+            axios.get(`${process.env.REACT_APP_API_URL}/user/${this.state.user._id}`)
                 .then(res => {
                     //if user_id is valid, set userIsValid to true
                     if (res.data._id === this.state.user._id) this.setState({ user: res.data, userIsValid: true });
@@ -66,7 +66,7 @@ class Home extends Component {
     componentDidUpdate() {
         //see if the user's last game is ongoing
         if (this.state.userIsValid && this.state.user.games.length > 0) {
-            axios.get(`${process.env.REACT_APP_API_URL}/game?_id=${this.state.user.games[this.state.user.games.length-1]}`)
+            axios.get(`${process.env.REACT_APP_API_URL}/game/${this.state.user.games[this.state.user.games.length-1]}`)
                 .then (res => {
                     //if the winner hasn't been determined, have the user join that game
                     if (res.data.winner === "none") {

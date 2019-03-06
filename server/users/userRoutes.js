@@ -21,9 +21,9 @@ router.route('')
 //find a user
 //input: the _id of the user
 //output: the user matching the _id
-router.route('')
+router.route('/:_id')
     .get((req, res) => {
-        const { _id } = req.query;
+        const { _id } = req.params;
 
         User.findById(_id)
             .then(user => {
