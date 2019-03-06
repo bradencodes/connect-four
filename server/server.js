@@ -25,6 +25,8 @@ const gameRoutes = require('./games/gameRoutes.js');
 app.use('/user', userRoutes);
 app.use('/game', gameRoutes);
 
+require('./socketRoutes/matching.js')(io.of('matching'));
+
 mongoose.Promise = global.Promise;
 mongoose.connect(`mongodb://localhost:27017/connectfour`, { useNewUrlParser: true }, (error) => {
     if (error) console.log(error);
