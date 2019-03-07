@@ -81,22 +81,20 @@ module.exports = (namespace) => {
                                 let newWinner = checkWinner(updatedGame);
                                 if (newWinner !== "none") {
                                     Game.findByIdAndUpdate(game_id, {winner: newWinner}, {new: true})
-                                        .then(finishedGame => socket.emit('finished', finishedGame))
+                                        .then(finishedGame => namespace.emit('finished', finishedGame))
                                 }
 
-                                else if (updatedGame) socket.emit('updated', updatedGame);
-                                else socket.emit('error', "Game not found");
+                                else if (updatedGame) namespace.emit('updated', updatedGame);
+                                else console.log("Game not found");
                             })
-                            .catch(err => {
-                                socket.emit('error', "Database failed to update game");
-                            })
+                            .catch(err => console.log("Database failed to update game"))
                     }
-                    else socket.emit('error', "Invalid move. Try again");
+                    else console.log("Invalid move. Try again");
                 })
-                .catch(err => socket.emit('error', "Server failed to find game"));
+                .catch(err => console.log("Server failed to find game"));
         })
 
-        socket.on('disconnect', () => {
-        })
+        // socket.on('disconnect', () => {
+        // })
     })
 }
