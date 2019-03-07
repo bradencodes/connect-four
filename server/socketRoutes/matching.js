@@ -23,11 +23,11 @@ module.exports = (namespace) => {
             const randNum = Math.random();
             let game = {};
             if (randNum < 0.5) {
-                game['black'] = player1ID;
-                game['red'] = player2ID;
+                game.black = player1ID;
+                game.red = player2ID;
             } else {
-                game['black'] = player2ID;
-                game['red'] = player1ID;
+                game.black = player2ID;
+                game.red = player1ID;
             }
 
             Game.create(game)

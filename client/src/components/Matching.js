@@ -21,7 +21,7 @@ class Matching extends Component {
                         this.props.history.push(`/game/${res.data._id}`);
                     }
                     //else, have the user join the lobby
-                    socket.emit('joinLobby', this.props.allState.user);
+                    else socket.emit('joinLobby', this.props.allState.user);
                 })
         } else socket.emit('joinLobby', this.props.allState.user);
 
