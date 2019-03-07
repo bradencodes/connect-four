@@ -58,15 +58,18 @@ module.exports = (namespace) => {
 
     namespace.on('connect', socket => {
 
-
         socket.on('joinLobby', (user) => {
+            socket.userData = {...user};
             lobby[user._id] = socket;
+            console.log( Object.keys(lobby) );
 
             matchingLoop();
         })
 
         socket.on('disconnect', () => {
-            
+            if (!socket.userData) return;
+
+            delete lobby[socket.userData._id];
         })
     })
 }

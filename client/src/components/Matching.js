@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import io from 'socket.io-client';
 import { withRouter } from 'react-router-dom';
 
-class Home extends Component {
+let socket;
+
+class Matching extends Component {
 
     componentDidMount() {
         console.log('joined matchmaking');
+        socket = io(`${process.env.REACT_APP_API_URL}/matching`);
 
         //see if the user's last game is ongoing
         if (this.props.allState.user.games.length > 0) {
@@ -16,8 +20,16 @@ class Home extends Component {
                         this.props.updateAllState({ game: res.data });
                         this.props.history.push(`/game/${res.data._id}`);
                     }
+                    //else, have the user join the lobby
+                    socket.emit('joinLobby', this.props.allState.user);
                 })
-        }
+        } else socket.emit('joinLobby', this.props.allState.user);
+
+        socket.on('matched', game => {
+            this.props.updateAllState({ game: game });
+            this.props.history.push(`/game/${game._id}`);
+        })
+
     }
 
     render() {
@@ -31,4 +43,4 @@ class Home extends Component {
     }
 }
 
-export default withRouter(Home);
+export default withRouter(Matching);
