@@ -26,6 +26,7 @@ app.use('/user', userRoutes);
 app.use('/game', gameRoutes);
 
 require('./socketRoutes/matching.js')(io.of('matching'));
+require('./socketRoutes/game.js')(io.of('game'));
 
 mongoose.Promise = global.Promise;
 mongoose.connect(`mongodb://${process.env.MLAB_USER}:${process.env.MLAB_PASSWORD}@ds040349.mlab.com:40349/connectfour`, { useNewUrlParser: true }, (error) => {
