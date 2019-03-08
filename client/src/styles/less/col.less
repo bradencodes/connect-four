@@ -1,6 +1,7 @@
 .col {
     width: 100%;
     height: 115%;
+    overflow: hidden;
     border-radius: 1000px;
     display: flex;
     flex-flow: column-reverse;
@@ -21,7 +22,7 @@
 
     @keyframes drop-token {
         from {
-            padding-bottom: 600%;
+            padding-bottom: 700%;
         }
         to {
             padding-bottom: 0;
@@ -33,7 +34,7 @@
         margin-top: 20%;
 
         animation-name: drop-token;
-        animation-duration: .3s;
+        animation-duration: .5s;
         animation-timing-function: ease-in;
 
         @media @phone {
