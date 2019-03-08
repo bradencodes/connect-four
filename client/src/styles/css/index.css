@@ -63,3 +63,8 @@ html {
     margin-top: 20.1%;
   }
 }
+.col .preview-token {
+  position: absolute;
+  top: -15%;
+  width: 11%;
+}

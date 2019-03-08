@@ -26,17 +26,23 @@ class Col extends Component {
         socket.emit('update', player_id, game_id, col);
     }
 
+
     render (){
+        let { playerColor } = this.props.allState;
+        let isTurn = this.props.allState.game.turn === playerColor;
+        let isSpace = this.props.allState.game[`col${this.props.num}`].length < 6;
+
         return (
             <div className='col' onClick={this.move} >
                 
-                {this.props.allState.game._id ? 
-                    this.props.allState.game[`col${this.props.num}`].map(color => {
-                        return (color === 'red' ? 
-                        <img className='token' src={redToken} alt='redToken' />
-                        : <img className='token' src={blackToken} alt='blackToken' />)
-                    })
-                : <div></div> }
+                {this.props.allState.game[`col${this.props.num}`].map(color => {
+                        return <img className='token' src={color === 'red' ? redToken : blackToken} alt='Token' />
+                })}
+
+                {isSpace && isTurn ? 
+                    <img className='preview-token' src={playerColor === 'red' ? redToken : blackToken} alt='Token' />
+                    : null
+                }
 
             </div>
         )

@@ -16,6 +16,7 @@ class App extends Component {
       },
       userIsValid: false,
       game: {},
+      playerColor: null,
       error: null
     }
   }
