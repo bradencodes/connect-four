@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 
+import Header from './Header.js';
 import Board from './gameParts/Board.js';
 
 class Game extends Component {
@@ -16,14 +17,20 @@ class Game extends Component {
     }
 
     render() {
+        let isGame = !!this.props.allState.game._id;
+        let isTurn = isGame ? this.props.allState.game.turn : null;
+        let bannerText = this.props.allState.game[isTurn] === this.props.allState.user._id 
+                            ? "YOUR TURN" : "OPPONENT'S TURN";
+        let turnBannerStyle = {
+            background: isTurn === 'red' ? '#d40000' : '#333333'
+        }
+
         return (
-            <div className="home-screen">
-                {this.props.allState.game._id ?
+            <div className="game-container">
+                {isGame ?
                     <>
-                    <h1>Connect 4</h1>
-                    <h2>Game: {this.props.allState.game._id}</h2>
-                    <h6>player1: {this.props.allState.game.red}</h6>
-                    <h6>player2: {this.props.allState.game.black}</h6>
+                    <Header />
+                    <div style={ turnBannerStyle } className='turn-banner'>{bannerText}</div>
                     <Board allState={this.props.allState} updateAllState={this.props.updateAllState}/>
                     </>
                     : null
