@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Route, withRouter } from 'react-router-dom';
+import './styles/css/index.css';
 
 import Home from './components/Home.js';
 import Matching from './components/Matching.js';

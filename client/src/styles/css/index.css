@@ -1,0 +1,47 @@
+* {
+  box-sizing: border-box;
+  outline: none;
+}
+html {
+  font-size: 62.5%;
+}
+.board {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+}
+.board .board-back {
+  position: absolute;
+  top: 60px;
+  left: 0;
+  margin-top: -6px;
+  width: 100%;
+  z-index: -20;
+}
+.board .columns {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 12px;
+}
+.board .columns .col {
+  width: 60px;
+  height: 485px;
+  border-radius: 500px;
+  display: flex;
+  flex-flow: column-reverse;
+  padding-bottom: 6px;
+}
+.board .columns .col:hover {
+  background: #d4000030;
+}
+.board .columns .col .token {
+  width: 100%;
+  margin: 3px 0;
+}
+.board .board-front {
+  position: absolute;
+  top: 60px;
+  left: 0;
+  width: 100%;
+  pointer-events: none;
+}

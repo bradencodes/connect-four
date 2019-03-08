@@ -1,0 +1,47 @@
+.board {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+
+    .board-back {
+        position: absolute;
+        top: 60px;
+        left: 0;
+        margin-top: -6px;
+        width: 100%;
+        z-index: -20;
+    }
+
+    .columns {
+        display: flex;
+        justify-content: space-between;
+        margin: 0 12px;
+
+        .col {
+            width: 60px;
+            height: 485px;
+            border-radius: 500px;
+            display: flex;
+            flex-flow: column-reverse;
+            padding-bottom: 6px;
+
+            &:hover {
+                background: #d4000030;
+            }
+
+            .token {
+                width: 100%;
+                margin: 3px 0;
+            }
+        }
+    }
+
+    .board-front {
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        pointer-events: none;
+    }
+
+}

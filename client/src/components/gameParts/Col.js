@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import io from 'socket.io-client';
+import redToken from '../../assets/redToken.svg';
+import blackToken from '../../assets/blackToken.svg';
 
 let socket;
 
@@ -19,18 +21,23 @@ class Col extends Component {
 
     move = () => {
         let player_id = this.props.allState.user._id;
-        console.log('player_id: ', player_id);
         let game_id = this.props.allState.game._id;
-        console.log('game_id: ', game_id);
         let col = this.props.num;
-        console.log('col: ', col);
         socket.emit('update', player_id, game_id, col);
     }
 
     render (){
         return (
             <div className='col' onClick={this.move} >
-                Column: {this.props.num}: {this.props.allState.game[`col${this.props.num}`]}
+                
+                {this.props.allState.game._id ? 
+                    this.props.allState.game[`col${this.props.num}`].map(color => {
+                        return (color === 'red' ? 
+                        <img className='token' src={redToken} alt='redToken' />
+                        : <img className='token' src={blackToken} alt='blackToken' />)
+                    })
+                : <div></div> }
+
             </div>
         )
     }
