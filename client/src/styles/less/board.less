@@ -1,50 +1,38 @@
-.board {
-    position: relative;
+.board-container {
     width: 100%;
-    max-width: 500px;
-
-    .board-back {
+    max-width: 800px;
+    
+    .board {
+        position: relative;
         width: 100%;
-        z-index: -20;
-    }
+        padding: 0 5%;
 
-    .columns {
-        position: absolute;
-        top: 0;
-        left: 0;
-        display: flex;
-        justify-content: space-around;
-        align-items: flex-end;
-        height: 100%;
-        width: 100%;
-        padding: 0 1.4%;
-
-        .col {
-            width: 13%;
-            height: 110%;
-            border-radius: 1000px;
-            display: flex;
-            flex-flow: column-reverse;
-            align-items: center;
-            padding-bottom: .6%;
-
-            &:hover {
-                background: #ffffff75;
-            }
-
-            .token {
-                width: 90%;
-                margin: 7.2% 0;
-            }
+        .board-back {
+            width: 100%;
+            z-index: -20;
         }
-    }
 
-    .board-front {
-        position: absolute;
-        top: 8px;
-        left: 0;
-        width: 100%;
-        pointer-events: none;
+        .columns {
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: flex;
+            justify-content: space-evenly;
+            align-items: flex-end;
+            height: 100%;
+            width: 100%;
+            padding: 0 5.3%;
+        }
+
+        .board-front {
+            position: absolute;
+            top: 1.5%;
+            left: 0;
+            width: 100%;
+            padding: 0 5%;
+            pointer-events: none;
+        }
+
     }
 
 }
