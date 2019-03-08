@@ -12,14 +12,8 @@ server.listen(port, () => {
     console.log(`\n=== API running on http://localhost:${port} ===\n`);
 })
 
-app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-});
-app.use(cors({ origin: 'https://connect-1234.netlify.com', credentials: true }));
+app.use(cors({ origin: ['http://localhost:3000', 'https://connect-1234.netlify.com' ] , credentials: true }));
 app.use(express.json());
-
 
 app.get('/', (req, res) => {
     res.status(200).json({ api: 'running...' })
