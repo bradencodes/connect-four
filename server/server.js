@@ -17,7 +17,7 @@ app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });
-app.use(cors({ origin: ['http://localhost:3000', 'https://connect-1234.netlify.com' ] , credentials: true }));
+app.use(cors({ origin: 'https://connect-1234.netlify.com', credentials: true }));
 app.use(express.json());
 
 
