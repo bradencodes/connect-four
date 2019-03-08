@@ -95,9 +95,20 @@ img {
 .col:hover .highlight {
   display: inline;
 }
+@keyframes drop-token {
+  from {
+    padding-bottom: 600%;
+  }
+  to {
+    padding-bottom: 0;
+  }
+}
 .col .token {
   width: 80%;
   margin-top: 20%;
+  animation-name: drop-token;
+  animation-duration: 0.3s;
+  animation-timing-function: ease-in;
 }
 @media (max-width: 600px) {
   .col .token {

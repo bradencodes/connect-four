@@ -19,9 +19,22 @@
         display: inline;
     }
 
+    @keyframes drop-token {
+        from {
+            padding-bottom: 600%;
+        }
+        to {
+            padding-bottom: 0;
+        }
+    }
+
     .token {
         width: 80%;
         margin-top: 20%;
+
+        animation-name: drop-token;
+        animation-duration: .3s;
+        animation-timing-function: ease-in;
 
         @media @phone {
             margin-top: 20.1%;
