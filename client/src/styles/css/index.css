@@ -54,6 +54,9 @@ html {
 .col:hover {
   background: #ffffff90;
 }
+.col:hover .preview-token {
+  display: inline;
+}
 .col .token {
   width: 80%;
   margin-top: 20%;
@@ -67,4 +70,5 @@ html {
   position: absolute;
   top: -15%;
   width: 11%;
+  display: none;
 }

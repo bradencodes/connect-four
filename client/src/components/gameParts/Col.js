@@ -29,14 +29,15 @@ class Col extends Component {
 
     render (){
         let { playerColor } = this.props.allState;
-        let isTurn = this.props.allState.game.turn === playerColor;
+        let isTurn = this.props.allState.game.turn === playerColor && this.props.allState.game.winner === 'none';
         let isSpace = this.props.allState.game[`col${this.props.num}`].length < 6;
 
         return (
             <div className='col' onClick={this.move} >
                 
-                {this.props.allState.game[`col${this.props.num}`].map(color => {
-                        return <img className='token' src={color === 'red' ? redToken : blackToken} alt='Token' />
+                {this.props.allState.game[`col${this.props.num}`].map((color, i) => {
+                        return <img className='token' src={color === 'red' ? redToken : blackToken} alt='Token' 
+                                key={`${this.props.num}-${i}`} />
                 })}
 
                 {isSpace && isTurn ? 
