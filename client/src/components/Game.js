@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
+import Confetti from 'react-confetti';
 
 import Header from './Header.js';
 import Board from './gameParts/Board.js';
@@ -24,6 +25,7 @@ class Game extends Component {
         let turnBannerStyle = {
             background: isTurn === 'red' ? '#d40000' : '#333333'
         }
+        let isWinner = isGame && this.props.allState.game.winner !== 'none';
 
         return (
             <div className="game-container">
@@ -33,6 +35,10 @@ class Game extends Component {
                     <div style={ turnBannerStyle } className='turn-banner'>{bannerText}</div>
                     <Board allState={this.props.allState} updateAllState={this.props.updateAllState}/>
                     </>
+                    : null
+                }
+                {isWinner ? 
+                    <Confetti />
                     : null
                 }
             </div>
