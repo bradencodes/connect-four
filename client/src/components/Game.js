@@ -9,8 +9,6 @@ class Game extends Component {
         if (!this.props.allState.userIsValid) {
             this.props.history.push('');
         }
-        
-        console.log('joined game');
     }
 
     render() {

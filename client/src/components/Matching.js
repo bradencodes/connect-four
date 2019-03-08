@@ -8,7 +8,10 @@ let socket;
 class Matching extends Component {
 
     componentDidMount() {
-        console.log('joined matchmaking');
+        if (!this.props.allState.userIsValid) {
+            this.props.history.push('');
+        }
+
         socket = io(`${process.env.REACT_APP_API_URL}/matching`);
 
         //see if the user's last game is ongoing
