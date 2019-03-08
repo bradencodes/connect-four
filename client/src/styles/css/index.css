@@ -5,6 +5,13 @@
 html {
   font-size: 62.5%;
 }
+img {
+  -khtml-user-select: none;
+  -o-user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
 .board-container {
   width: 100%;
   max-width: 800px;
@@ -51,10 +58,10 @@ html {
     padding-bottom: 1.3%;
   }
 }
-.col:hover {
-  background: #ffffff90;
-}
 .col:hover .preview-token {
+  display: inline;
+}
+.col:hover .highlight {
   display: inline;
 }
 .col .token {
@@ -70,5 +77,12 @@ html {
   position: absolute;
   top: -15%;
   width: 11%;
+  display: none;
+}
+.col .highlight {
+  height: 100%;
+  width: 100%;
+  background: white;
+  opacity: 0.5;
   display: none;
 }

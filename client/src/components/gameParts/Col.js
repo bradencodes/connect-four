@@ -40,8 +40,11 @@ class Col extends Component {
                                 key={`${this.props.num}-${i}`} />
                 })}
 
-                {isSpace && isTurn ? 
+                {isSpace && isTurn ?
+                    <>
                     <img className='preview-token' src={playerColor === 'red' ? redToken : blackToken} alt='Token' />
+                    <div className='highlight' />
+                    </>
                     : null
                 }
 
