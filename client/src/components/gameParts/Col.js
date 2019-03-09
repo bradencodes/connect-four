@@ -36,7 +36,7 @@ class Col extends Component {
             <div className='col' onClick={this.move} >
                 
                 {this.props.allState.game[`col${this.props.num}`].map((color, i) => {
-                        return <img className='token' src={color === 'red' ? redToken : blackToken} alt='Token' 
+                        return <img className={`token${i}`} src={color === 'red' ? redToken : blackToken} alt='Token' 
                                 key={`${this.props.num}-${i}`} />
                 })}
 

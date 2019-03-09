@@ -1,6 +1,6 @@
 .col {
     width: 100%;
-    height: 115%;
+    height: 117%;
     overflow: hidden;
     border-radius: 1000px;
     display: flex;
@@ -20,26 +20,81 @@
         display: inline;
     }
 
-    @keyframes drop-token {
-        from {
-            padding-bottom: 700%;
-        }
-        to {
-            padding-bottom: 0;
-        }
+    @keyframes drop-token0 {
+        from {padding-bottom: 600%;}
+        to {padding-bottom: 0;}
+    }
+
+    @keyframes drop-token1 {
+        from {padding-bottom: 500%;}
+        to {padding-bottom: 0;}
+    }
+
+    @keyframes drop-token2 {
+        from {padding-bottom: 400%;}
+        to {padding-bottom: 0;}
+    }
+
+    @keyframes drop-token3 {
+        from {padding-bottom: 300%;}
+        to {padding-bottom: 0;}
+    }
+
+    @keyframes drop-token4 {
+        from {padding-bottom: 200%;}
+        to {padding-bottom: 0;}
+    }
+
+    @keyframes drop-token5 {
+        from {padding-bottom: 100%;}
+        to {padding-bottom: 0;}
     }
 
     .token {
         width: 80%;
         margin-top: 20%;
 
-        animation-name: drop-token;
-        animation-duration: .5s;
         animation-timing-function: ease-in;
 
         @media @phone {
             margin-top: 20.1%;
         }
+    }
+
+    .token0 {
+        .token;
+        animation-name: drop-token0;
+        animation-duration: .5s;
+    }
+
+    .token1 {
+        .token;
+        animation-name: drop-token1;
+        animation-duration: .452s;
+    }
+
+    .token2 {
+        .token;
+        animation-name: drop-token2;
+        animation-duration: .404s;
+    }
+
+    .token3 {
+        .token;
+        animation-name: drop-token3;
+        animation-duration: .349s;
+    }
+
+    .token4 {
+        .token;
+        animation-name: drop-token4;
+        animation-duration: .286s;
+    }
+
+    .token5 {
+        .token;
+        animation-name: drop-token5;
+        animation-duration: .202s;
     }
 
     .preview-token {
