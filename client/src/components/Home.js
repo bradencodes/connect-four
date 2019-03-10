@@ -55,6 +55,19 @@ class Home extends Component {
         }
     }
 
+    componentDidUpdate() {
+        if (this.props.allState.user.games.length > 0) {
+            axios.get(`${process.env.REACT_APP_API_URL}/game/${this.props.allState.user.games[this.props.allState.user.games.length-1]}`)
+                .then (res => {
+                    //if the winner hasn't been determined, have the user join that game
+                    if (res.data.winner === "none") {
+                        this.props.updateAllState({ game: res.data });
+                        this.props.history.push(`/game/${res.data._id}`);
+                    }
+            })
+        };
+    }
+
     goToMatching = () => {
         this.props.history.push('/matching');
     }
