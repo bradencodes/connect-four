@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import io from 'socket.io-client';
 import { withRouter } from 'react-router-dom';
+import logo from '../assets/logo.svg';
+import redToken from '../assets/redToken.svg';
 
 let socket;
 
@@ -37,10 +39,17 @@ class Matching extends Component {
 
     render() {
         return (
-            <div className="home-screen">
-                <h1>Connect 4</h1>
-                <h2>Looking for match...</h2>
-                <h6>user_id: {this.props.allState.user._id}</h6>
+            <div className="matching-screen">
+
+                <img className='logo' src={logo} alt='logo' />
+
+                <div className='loading-container'>
+                    <div className='loading'>
+                        <img src={redToken} className='token' alt='token' />
+                        <div className='text'>LOOKING FOR MATCH...</div>
+                    </div>
+                </div>
+                
             </div>
         );
     }
