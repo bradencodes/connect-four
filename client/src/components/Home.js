@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { withRouter } from 'react-router-dom';
+import logo from '../assets/logo.svg';
+import redToken from '../assets/redToken.svg';
+import blackToken from '../assets/blackToken.svg';
 
 class Home extends Component {
 
@@ -51,18 +55,29 @@ class Home extends Component {
         }
     }
 
+    goToMatching = () => {
+        this.props.history.push('/matching');
+    }
+
     render() {
         return (
             <div className="home-screen">
-                <h1>Connect 4</h1>
-                {
-                    this.props.allState.userIsValid ? 
-                    <h6>user_id: {this.props.allState.user._id}</h6> :
-                    <h6>loading your info</h6>
-                }
+
+                <img className='logo' src={logo} alt='logo' />
+
+                <div className='options'>
+                    <div className='option' onClick={() => this.goToMatching()}>
+                        <img src={redToken} className='token' alt='token' />
+                        <div className='text'>PLAY GAME</div>
+                    </div>
+                    <div className='option'>
+                        <img src={blackToken} className='token' alt='token' />
+                        <div className='text'>SPECTATE</div>
+                    </div>
+                </div>
             </div>
         );
     }
 }
 
-export default Home;
+export default withRouter(Home);

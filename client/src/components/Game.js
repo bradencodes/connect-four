@@ -7,7 +7,12 @@ import Board from './gameParts/Board.js';
 
 class Game extends Component {
 
-    componentDidMount() {        
+    componentDidMount() {
+        if (this.props.allState.userIsValid && !this.props.allState.game._id) {
+            this.props.history.push('/matching');
+        }
+
+
         if (!this.props.allState.userIsValid) {
             this.props.history.push('');
         }

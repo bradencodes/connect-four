@@ -15,6 +15,57 @@ img {
   -webkit-user-select: none;
   user-select: none;
 }
+.App {
+  font-family: 'Questrial', sans-serif;
+}
+.home-screen {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+}
+.home-screen .logo {
+  width: 100%;
+  max-width: 600px;
+  margin-top: 20vh;
+  padding: 20px;
+}
+.home-screen .options {
+  width: 100%;
+  max-width: 800px;
+  height: 150px;
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+}
+.home-screen .options .option {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  cursor: pointer;
+}
+.home-screen .options .option:hover .token {
+  margin-bottom: 0;
+  transform: rotate(45deg);
+}
+.home-screen .options .option .token {
+  margin-bottom: -50px;
+  width: 100px;
+  transition-duration: 0.2s;
+}
+.home-screen .options .option .text {
+  color: white;
+  background: black;
+  border: white solid 2px;
+  box-shadow: 0 0 0 4px hsl(0, 0%, 0%);
+  border-radius: 1000px;
+  text-align: center;
+  padding: 5px 13px;
+  margin-top: 10px;
+  font-size: 2.2rem;
+  z-index: 1;
+}
 .header-container {
   background: black;
   width: 100%;
@@ -24,7 +75,7 @@ img {
   align-items: center;
 }
 .header-container .logo {
-  padding: 10px;
+  padding: 5px;
   height: 100%;
 }
 .game-container {
@@ -150,6 +201,7 @@ img {
 .col .token {
   width: 80%;
   margin-top: 20%;
+  pointer-events: none;
   animation-timing-function: ease-in;
 }
 @media (max-width: 600px) {
@@ -160,6 +212,7 @@ img {
 .col .token0 {
   width: 80%;
   margin-top: 20%;
+  pointer-events: none;
   animation-timing-function: ease-in;
   animation-name: drop-token0;
   animation-duration: 0.5s;
@@ -172,6 +225,7 @@ img {
 .col .token1 {
   width: 80%;
   margin-top: 20%;
+  pointer-events: none;
   animation-timing-function: ease-in;
   animation-name: drop-token1;
   animation-duration: 0.452s;
@@ -184,6 +238,7 @@ img {
 .col .token2 {
   width: 80%;
   margin-top: 20%;
+  pointer-events: none;
   animation-timing-function: ease-in;
   animation-name: drop-token2;
   animation-duration: 0.404s;
@@ -196,6 +251,7 @@ img {
 .col .token3 {
   width: 80%;
   margin-top: 20%;
+  pointer-events: none;
   animation-timing-function: ease-in;
   animation-name: drop-token3;
   animation-duration: 0.349s;
@@ -208,6 +264,7 @@ img {
 .col .token4 {
   width: 80%;
   margin-top: 20%;
+  pointer-events: none;
   animation-timing-function: ease-in;
   animation-name: drop-token4;
   animation-duration: 0.286s;
@@ -220,6 +277,7 @@ img {
 .col .token5 {
   width: 80%;
   margin-top: 20%;
+  pointer-events: none;
   animation-timing-function: ease-in;
   animation-name: drop-token5;
   animation-duration: 0.202s;
@@ -241,4 +299,5 @@ img {
   background: white;
   opacity: 0.5;
   display: none;
+  cursor: pointer;
 }

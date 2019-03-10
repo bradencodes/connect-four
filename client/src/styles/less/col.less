@@ -20,6 +20,10 @@
         display: inline;
     }
 
+    //===== START Token Styling and Animation =====
+
+    //tokens start at a different height to account for the number of
+    // tokens below them, so they always start just above the board
     @keyframes drop-token0 {
         from {padding-bottom: 600%;}
         to {padding-bottom: 0;}
@@ -53,6 +57,7 @@
     .token {
         width: 80%;
         margin-top: 20%;
+        pointer-events: none;
 
         animation-timing-function: ease-in;
 
@@ -97,6 +102,8 @@
         animation-duration: .202s;
     }
 
+    //===== END Token Styling and Animation =====
+
     .preview-token {
         position: absolute;
         top: -15%;
@@ -110,5 +117,6 @@
         background: white;
         opacity: .50;
         display: none;
+        cursor: pointer;
     }
 }

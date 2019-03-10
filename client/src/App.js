@@ -25,12 +25,6 @@ class App extends Component {
     this.setState(update);
   }
 
-  componentDidUpdate() {
-    if (this.state.userIsValid && !this.state.game._id) {
-      if (this.props.location.pathname !== '/matching') this.props.history.push('/matching');
-    }
-  }
-
   render() {
     return (
       <div className='App'>
