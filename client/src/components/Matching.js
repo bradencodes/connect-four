@@ -10,9 +10,15 @@ let socket;
 class Matching extends Component {
 
     componentDidMount() {
+        //if a user isn't valid, send them to the home screen
         if (!this.props.allState.userIsValid) {
             this.props.history.push('');
+            return;
         }
+
+        window.addEventListener('beforeunload', () => {
+            socket = null;
+        })
 
         socket = io(`${process.env.REACT_APP_API_URL}/matching`);
 
@@ -22,6 +28,7 @@ class Matching extends Component {
                 .then (res => {
                     //if the winner hasn't been determined, have the user join that game
                     if (res.data.winner === "none") {
+                        socket = null;
                         this.props.updateAllState({ game: res.data });
                         this.props.history.push(`/game/${res.data._id}`);
                     }
@@ -31,10 +38,10 @@ class Matching extends Component {
         } else socket.emit('joinLobby', this.props.allState.user);
 
         socket.on('matched', game => {
+            socket = null;
             this.props.updateAllState({ game: game });
             this.props.history.push(`/game/${game._id}`);
         })
-
     }
 
     render() {

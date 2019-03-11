@@ -56,6 +56,7 @@ class Home extends Component {
     }
 
     componentDidUpdate() {
+        //if the user is in an open game, send the user to that endpoint
         if (this.props.allState.user.games.length > 0) {
             axios.get(`${process.env.REACT_APP_API_URL}/game/${this.props.allState.user.games[this.props.allState.user.games.length-1]}`)
                 .then (res => {

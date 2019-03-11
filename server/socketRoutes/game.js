@@ -93,8 +93,5 @@ module.exports = (namespace) => {
                 })
                 .catch(err => console.log("Server failed to find game"));
         })
-
-        // socket.on('disconnect', () => {
-        // })
     })
 }

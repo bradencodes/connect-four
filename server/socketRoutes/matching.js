@@ -61,7 +61,6 @@ module.exports = (namespace) => {
         socket.on('joinLobby', (user) => {
             socket.userData = {...user};
             lobby[user._id] = socket;
-            console.log( Object.keys(lobby) );
 
             matchingLoop();
         })
@@ -69,7 +68,12 @@ module.exports = (namespace) => {
         socket.on('disconnect', () => {
             if (!socket.userData) return;
 
+            console.log('lobby[socket.userData._id] before: ', !!lobby[socket.userData._id]);
+            console.log('lobby keys before: ', Object.keys(lobby) );
+            console.log('socket.userData: ', socket.userData );
             delete lobby[socket.userData._id];
+            console.log('lobby[socket.userData._id] after: ', !!lobby[socket.userData._id]);
+            console.log('lobby keys after: ', Object.keys(lobby) );
         })
     })
 }

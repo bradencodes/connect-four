@@ -16,6 +16,7 @@ class Col extends Component {
 
         socket.on('finished', finishedGame => {
             this.props.updateAllState({game: finishedGame});
+            socket = null;
         })
     }
 
