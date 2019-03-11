@@ -65,15 +65,16 @@ module.exports = (namespace) => {
             matchingLoop();
         })
 
+        socket.on('leave', () => {
+            if (!socket.userData) return;
+
+            delete lobby[socket.userData._id];
+        })
+
         socket.on('disconnect', () => {
             if (!socket.userData) return;
 
-            console.log('lobby[socket.userData._id] before: ', !!lobby[socket.userData._id]);
-            console.log('lobby keys before: ', Object.keys(lobby) );
-            console.log('socket.userData: ', socket.userData );
             delete lobby[socket.userData._id];
-            console.log('lobby[socket.userData._id] after: ', !!lobby[socket.userData._id]);
-            console.log('lobby keys after: ', Object.keys(lobby) );
         })
     })
 }

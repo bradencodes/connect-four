@@ -24,7 +24,7 @@ class Matching extends Component {
                 .then (res => {
                     //if the winner hasn't been determined, have the user join that game
                     if (res.data.winner === "none") {
-                        socket.emit('disconnect');
+                        socket.emit('leave');
                         this.props.updateAllState({ game: res.data });
                         this.props.history.push(`/game/${res.data._id}`);
                     }
@@ -34,14 +34,18 @@ class Matching extends Component {
         } else socket.emit('joinLobby', this.props.allState.user);
 
         socket.on('matched', game => {
-            socket.emit('disconnect');
+            socket.emit('leave');
             this.props.updateAllState({ game: game });
             this.props.history.push(`/game/${game._id}`);
         })
     }
 
+    componentWillUnmount() {
+        if (socket) socket.emit('leave');
+    }
+
     goHome = () => {
-        socket.emit('disconnect');
+        socket.emit('leave');
         this.props.history.push('');
     }
 
