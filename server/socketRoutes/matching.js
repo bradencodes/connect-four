@@ -65,12 +65,15 @@ module.exports = (namespace) => {
             matchingLoop();
         })
 
+        //'leave' and 'disconnect' both take the player out of the lobby
+        //Use 'leave' when hardcoding a leave
         socket.on('leave', () => {
             if (!socket.userData) return;
 
             delete lobby[socket.userData._id];
         })
 
+        //'disconnect' will trigger automatically when app is closed
         socket.on('disconnect', () => {
             if (!socket.userData) return;
 

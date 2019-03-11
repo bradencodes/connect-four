@@ -10,13 +10,14 @@ class Col extends Component {
     componentDidMount() {
         socket = io(`${process.env.REACT_APP_API_URL}/game`);
 
+        socket.emit('join room', this.props.allState.game._id);
+
         socket.on('updated', updatedGame => {
             this.props.updateAllState({game: updatedGame});
         })
 
         socket.on('finished', finishedGame => {
             this.props.updateAllState({game: finishedGame});
-            socket = null;
         })
     }
 
