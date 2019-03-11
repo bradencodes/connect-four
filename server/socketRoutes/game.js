@@ -62,13 +62,11 @@ module.exports = (namespace) => {
         return "none";
     }
 
-    let room;
-
     namespace.on('connect', socket => {
 
         socket.on('join room', room_id => {
             socket.join(room_id);
-            room = room_id;
+            socket.gameID = room_id;
         })
 
         socket.on('update', (player_id, game_id, col) => {
@@ -88,10 +86,10 @@ module.exports = (namespace) => {
                                 let newWinner = checkWinner(updatedGame);
                                 if (newWinner !== "none") {
                                     Game.findByIdAndUpdate(game_id, {winner: newWinner}, {new: true})
-                                        .then(finishedGame => namespace.to(room).emit('finished', finishedGame))
+                                        .then(finishedGame => namespace.to(socket.gameID).emit('finished', finishedGame))
                                 }
 
-                                else if (updatedGame) namespace.to(room).emit('updated', updatedGame);
+                                else if (updatedGame) namespace.to(socket.gameID).emit('updated', updatedGame);
                                 else console.log("Game not found");
                             })
                             .catch(err => console.log("Database failed to update game"))
