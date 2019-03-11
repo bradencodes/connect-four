@@ -16,10 +16,6 @@ class Matching extends Component {
             return;
         }
 
-        window.addEventListener('beforeunload', () => {
-            socket = null;
-        })
-
         socket = io(`${process.env.REACT_APP_API_URL}/matching`);
 
         //see if the user's last game is ongoing
@@ -28,7 +24,7 @@ class Matching extends Component {
                 .then (res => {
                     //if the winner hasn't been determined, have the user join that game
                     if (res.data.winner === "none") {
-                        socket = null;
+                        socket.emit('disconnect');
                         this.props.updateAllState({ game: res.data });
                         this.props.history.push(`/game/${res.data._id}`);
                     }
@@ -38,10 +34,15 @@ class Matching extends Component {
         } else socket.emit('joinLobby', this.props.allState.user);
 
         socket.on('matched', game => {
-            socket = null;
+            socket.emit('disconnect');
             this.props.updateAllState({ game: game });
             this.props.history.push(`/game/${game._id}`);
         })
+    }
+
+    goHome = () => {
+        socket.emit('disconnect');
+        this.props.history.push('');
     }
 
     render() {
@@ -56,6 +57,9 @@ class Matching extends Component {
                         <div className='text'>LOOKING FOR MATCH...</div>
                     </div>
                 </div>
+
+                
+                <div className='back' onClick={() => this.goHome()}>back to home</div>
                 
             </div>
         );
