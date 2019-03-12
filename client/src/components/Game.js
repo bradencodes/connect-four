@@ -40,7 +40,7 @@ class Game extends Component {
                     <Header />
                     <div style={ turnBannerStyle } className='turn-banner'>{bannerText}</div>
                     <Board allState={this.props.allState} updateAllState={this.props.updateAllState}/>
-                    <Footer />
+                    <Footer allState={this.props.allState} updateAllState={this.props.updateAllState}/>
                     </>
                     : null
                 }

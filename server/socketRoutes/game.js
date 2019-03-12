@@ -98,5 +98,12 @@ module.exports = (namespace) => {
                 })
                 .catch(err => console.log("Server failed to find game"));
         })
+
+        socket.on('resign', (winner, game_id) => {
+            Game.findByIdAndUpdate(game_id, { winner }, {new: true})
+                .then(finishedGame => namespace.to(socket.gameID).emit('finished', finishedGame))
+                .catch(err => console.log("Database failed to update game"))
+        });
+        
     })
 }
