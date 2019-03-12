@@ -12,7 +12,9 @@ const Header = (props) => {
     }
     return (
         <div className='header-container' >
-            <img className='logo' src={logo} alt='logo' />
+            <div className='logo-container'>
+                <img className='logo' src={logo} alt='logo' />
+            </div>
 
             <div style={ turnBannerStyle } className='turn-banner'>{bannerText}</div>
         </div>
