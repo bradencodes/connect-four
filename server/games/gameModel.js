@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const ObjectId = mongoose.Schema.Types.ObjectId;
 
 const GameSchema = new mongoose.Schema({
-    //stores what player has what color and who's turn it is
+    //store what player has what color and who's turn it is
     black: { type: ObjectId, ref: 'User' },
     red: { type: ObjectId, ref: 'User' },
     turn: String,

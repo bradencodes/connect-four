@@ -13,7 +13,6 @@ class Game extends Component {
             this.props.history.push('/matching');
         }
 
-
         if (!this.props.allState.userIsValid) {
             this.props.history.push('');
         }

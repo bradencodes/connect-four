@@ -103,7 +103,6 @@ module.exports = (namespace) => {
             Game.findByIdAndUpdate(game_id, { winner }, {new: true})
                 .then(finishedGame => namespace.to(socket.gameID).emit('finished', finishedGame))
                 .catch(err => console.log("Database failed to update game"))
-        });
-        
+        })
     })
 }

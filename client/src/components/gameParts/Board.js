@@ -12,7 +12,7 @@ const Board = (props) => {
                 <img src={boardBack} className='board-back' alt='boardBack' />
 
                 <div className='columns'>
-                    <Col num={1} allState={props.allState} updateAllState={props.updateAllState} />
+                    <Col num={1} allState={props.allState} updateAllState={props.updateAllState}/>
                     <Col num={2} allState={props.allState} updateAllState={props.updateAllState}/>
                     <Col num={3} allState={props.allState} updateAllState={props.updateAllState}/>
                     <Col num={4} allState={props.allState} updateAllState={props.updateAllState}/>
