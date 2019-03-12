@@ -19,12 +19,13 @@ app.get('/', (req, res) => {
     res.status(200).json({ api: 'running...' })
 });
 
+//REST API routes
 const userRoutes = require('./users/userRoutes.js');
 const gameRoutes = require('./games/gameRoutes.js');
-
 app.use('/user', userRoutes);
 app.use('/game', gameRoutes);
 
+//socket.io endpoints
 require('./socketRoutes/matching.js')(io.of('matching'));
 require('./socketRoutes/game.js')(io.of('game'));
 
