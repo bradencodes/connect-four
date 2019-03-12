@@ -24,27 +24,22 @@ class Game extends Component {
 
     render() {
         let isGame = !!this.props.allState.game._id;
-        let isTurn = isGame ? this.props.allState.game.turn : null;
-        let bannerText = this.props.allState.game[isTurn] === this.props.allState.user._id 
-                            ? "YOUR TURN" : "OPPONENT'S TURN";
-        let turnBannerStyle = {
-            background: isTurn === 'red' ? '#d40000' : '#333333'
-        }
         let isWinner = isGame && this.props.allState.game.winner !== 'none';
 
         return (
             <div className="game-container">
+                {isWinner ? 
+                    <div className='confetti'>
+                        <Confetti />
+                    </div>
+                    : null
+                }
                 {isGame ?
                     <>
-                    <Header />
-                    <div style={ turnBannerStyle } className='turn-banner'>{bannerText}</div>
+                    <Header allState={this.props.allState} updateAllState={this.props.updateAllState}/>
                     <Board allState={this.props.allState} updateAllState={this.props.updateAllState}/>
                     <Footer allState={this.props.allState} updateAllState={this.props.updateAllState}/>
                     </>
-                    : null
-                }
-                {isWinner ? 
-                    <Confetti />
                     : null
                 }
             </div>

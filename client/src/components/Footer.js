@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import io from 'socket.io-client';
 
 let socket;
@@ -38,4 +39,4 @@ class Footer extends Component {
     }
 }
 
-export default Footer;
+export default withRouter(Footer);
