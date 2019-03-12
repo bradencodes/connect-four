@@ -7,19 +7,21 @@ module.exports = (namespace) => {
     let runningLoop = false;
 
     const matchingLoop = () => {
+        //check that the loop is running to avoid duplicate matches
         if (runningLoop) return;
 
         runningLoop = true;
 
         let users = Object.keys(lobby);
 
+        //as long as there is more than one player in the lobby, match the players together
         while (users.length > 1) {
             let player1ID = users[0];
             let player1Socket = lobby[player1ID];
             let player2ID = users[1];
             let player2Socket = lobby[player2ID];
 
-            //create a game with the two players
+            //create a game with the two players, and randomly assign them a color
             const randNum = Math.random();
             let game = {};
             if (randNum < 0.5) {
@@ -58,6 +60,7 @@ module.exports = (namespace) => {
 
     namespace.on('connect', socket => {
 
+        //add users to the lobby object when they join matchmaking, and start the matching loop
         socket.on('joinLobby', (user) => {
             socket.userData = {...user};
             lobby[user._id] = socket;
@@ -66,7 +69,7 @@ module.exports = (namespace) => {
         })
 
         //'leave' and 'disconnect' both take the player out of the lobby
-        //Use 'leave' when hardcoding a leave
+        //Use 'leave' when hardcoding a leave (i.e. when the user navigates away from matchmaking)
         socket.on('leave', () => {
             if (!socket.userData) return;
 
