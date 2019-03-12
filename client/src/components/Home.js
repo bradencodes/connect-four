@@ -84,10 +84,10 @@ class Home extends Component {
                         <img src={redToken} className='token' alt='token' />
                         <div className='text'>PLAY GAME</div>
                     </div>
-                    <div className='option'>
+                    {/* <div className='option'>
                         <img src={blackToken} className='token' alt='token' />
                         <div className='text'>SPECTATE</div>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         );
