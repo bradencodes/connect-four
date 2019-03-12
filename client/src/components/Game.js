@@ -4,6 +4,7 @@ import Confetti from 'react-confetti';
 
 import Header from './Header.js';
 import Board from './gameParts/Board.js';
+import Footer from './Footer.js';
 
 class Game extends Component {
 
@@ -39,6 +40,7 @@ class Game extends Component {
                     <Header />
                     <div style={ turnBannerStyle } className='turn-banner'>{bannerText}</div>
                     <Board allState={this.props.allState} updateAllState={this.props.updateAllState}/>
+                    <Footer />
                     </>
                     : null
                 }
