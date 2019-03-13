@@ -19,13 +19,11 @@ class Game extends Component {
     }
 
     componentDidMount() {
-        if (userIsValid && !game._id) {
-            this.props.history.push('/matching');
-        }
-
         if (!userIsValid) {
             this.props.history.push('');
         }
+
+        updateAllState({ userIsValid: false });
 
         this.updateWindowDimensions();
         window.addEventListener('resize', this.updateWindowDimensions);
