@@ -64,32 +64,40 @@ module.exports = (namespace) => {
 
     namespace.on('connect', socket => {
 
-        socket.on('join room', room_id => {
-            socket.join(room_id);
-            socket.gameID = room_id;
+        //Users join a new room when starting a new game. Updates to the game state only go to the players in the 
+        // socket's current room, so that moves are separated by game as expected.
+        //Note: use the game._id as the room name to easily connect the two players of the game
+        socket.on('join room', room => {
+            socket.join(room);
+            socket.room = room;
         })
 
+
+        //update a game when a player makes a move
+        //input: the moving player's id, the id of their current game, the column they placed a token into
+        //output: the updated game
         socket.on('update', (player_id, game_id, col) => {
             //find the oldGame state to check that the move is valid
             Game.findById(game_id)
                 .then(oldGame => {
-                    //check that the game isn't won, it is the player's turn, there is space in the column
+                    //check that the game isn't won, it is the player's turn, and there is space in the column
                     const isGoing = oldGame.winner === "none";
                     const isTurn = oldGame[oldGame.turn] == player_id;
                     const isSpace = oldGame[`col${col}`].length < 6;
 
                     if (isGoing && isTurn && isSpace){
+                        //update the game by putting a new token in the specified column, and toggling the turn
                         const newTurn = oldGame.turn === "red" ? "black" : "red";
                         Game.findByIdAndUpdate(game_id, { $push: {[`col${col}`]: oldGame.turn}, turn: newTurn }, {new: true})
                             .then(updatedGame => {
-                                //check if the new move wins or ties
+                                //check if the new move wins or ties and emit the appropriate response with the updated/finished game
                                 let newWinner = checkWinner(updatedGame);
                                 if (newWinner !== "none") {
                                     Game.findByIdAndUpdate(game_id, {winner: newWinner}, {new: true})
-                                        .then(finishedGame => namespace.to(socket.gameID).emit('finished', finishedGame))
+                                        .then(finishedGame => namespace.to(socket.room).emit('finished', finishedGame))
                                 }
 
-                                else if (updatedGame) namespace.to(socket.gameID).emit('updated', updatedGame);
+                                else if (updatedGame) namespace.to(socket.room).emit('updated', updatedGame);
                                 else console.log("Game not found");
                             })
                             .catch(err => console.log("Database failed to update game"))
@@ -99,9 +107,12 @@ module.exports = (namespace) => {
                 .catch(err => console.log("Server failed to find game"));
         })
 
+        //update the winner of the game when a player resigns
+        //input: the token color of the winner, and the id of the game
+        //output: the updated game
         socket.on('resign', (winner, game_id) => {
             Game.findByIdAndUpdate(game_id, { winner }, {new: true})
-                .then(finishedGame => namespace.to(socket.gameID).emit('finished', finishedGame))
+                .then(finishedGame => namespace.to(socket.room).emit('finished', finishedGame))
                 .catch(err => console.log("Database failed to update game"))
         })
     })

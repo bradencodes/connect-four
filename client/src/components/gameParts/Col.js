@@ -4,40 +4,43 @@ import redToken from '../../assets/redToken.svg';
 import blackToken from '../../assets/blackToken.svg';
 
 let socket;
+let user, game, playerColor, updateAllState;
 
 class Col extends Component {
 
     componentDidMount() {
         socket = io(`${process.env.REACT_APP_API_URL}/game`);
 
-        socket.emit('join room', this.props.allState.game._id, this.props.allState.playerColor);
+        socket.emit('join room', game._id);
 
         socket.on('updated', updatedGame => {
-            this.props.updateAllState({game: updatedGame});
+            updateAllState({ game: updatedGame });
         })
 
         socket.on('finished', finishedGame => {
-            this.props.updateAllState({game: finishedGame});
+            updateAllState({ game: finishedGame });
         })
     }
 
     move = () => {
-        let player_id = this.props.allState.user._id;
-        let game_id = this.props.allState.game._id;
         let col = this.props.num;
-        socket.emit('update', player_id, game_id, col);
+        socket.emit('update', user._id, game._id, col);
     }
 
 
     render (){
-        let { playerColor } = this.props.allState;
-        let isTurn = this.props.allState.game.turn === playerColor && this.props.allState.game.winner === 'none';
-        let isSpace = this.props.allState.game[`col${this.props.num}`].length < 6;
+        user = this.props.allState.user;
+        game = this.props.allState.game;
+        playerColor = this.props.allState.playerColor;
+        updateAllState = this.props.updateAllState;
+
+        let isTurn = game.turn === playerColor && game.winner === 'none';
+        let isSpace = game[`col${this.props.num}`].length < 6;
 
         return (
             <div className='col' onClick={this.move} >
                 
-                {this.props.allState.game[`col${this.props.num}`].map((color, i) => {
+                {game[`col${this.props.num}`].map((color, i) => {
                         return <img className={`token${i}`} src={color === 'red' ? redToken : blackToken} alt='Token' 
                                 key={`${this.props.num}-${i}`} />
                 })}

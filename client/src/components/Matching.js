@@ -6,36 +6,24 @@ import logo from '../assets/logo.svg';
 import redToken from '../assets/redToken.svg';
 
 let socket;
+let user, userIsValid, updateAllState;
 
 class Matching extends Component {
 
     componentDidMount() {
         //if a user isn't valid, send them to the home screen
-        if (!this.props.allState.userIsValid) {
+        if (!userIsValid) {
             this.props.history.push('');
             return;
         }
 
         socket = io(`${process.env.REACT_APP_API_URL}/matching`);
 
-        //see if the user's last game is ongoing
-        if (this.props.allState.user.games.length > 0) {
-            axios.get(`${process.env.REACT_APP_API_URL}/game/${this.props.allState.user.games[this.props.allState.user.games.length-1]}`)
-                .then (res => {
-                    //if the winner hasn't been determined, have the user join that game
-                    if (res.data.winner === "none") {
-                        socket.emit('leave');
-                        this.props.updateAllState({ game: res.data });
-                        this.props.history.push(`/game/${res.data._id}`);
-                    }
-                    //else, have the user join the lobby
-                    else socket.emit('joinLobby', this.props.allState.user);
-                })
-        } else socket.emit('joinLobby', this.props.allState.user);
+        socket.emit('joinLobby', user);
 
         socket.on('matched', game => {
             socket.emit('leave');
-            this.props.updateAllState({ game: game });
+            updateAllState({ game: game });
             this.props.history.push(`/game/${game._id}`);
         })
     }
@@ -50,6 +38,10 @@ class Matching extends Component {
     }
 
     render() {
+        user = this.props.allState.user;
+        userIsValid = this.props.allState.userIsValid;
+        updateAllState = this.props.updateAllState;
+
         return (
             <div className="matching-screen">
 

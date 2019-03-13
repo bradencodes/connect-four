@@ -45,29 +45,21 @@
             }
 
             .text {
-                color: @white;
-                background: @black;
-                border: @white solid 2px;
-                box-shadow: 0 0 0 4px hsl(0, 0%, 0%);
-                border-radius: 1000px;
-                text-align: center;
-                padding: 5px 13px;
+                #common .button();
                 font-size: 2.5rem;
+                margin-top: 0;
+
+                @media @phone {
+                    font-size: 2.5rem;
+                }
+
                 z-index: -1;
             }
         }
     }
 
     .back{
-        color: @white;
-        background: @black;
-        border: @white solid 2px;
-        box-shadow: 0 0 0 4px hsl(0, 0%, 0%);
-        border-radius: 1000px;
-        text-align: center;
-        padding: 5px 13px;
-        font-size: 2.0rem;
+        #common .button();
         margin-top: 10%;
-        cursor: pointer;
     }
 }
