@@ -35,21 +35,4 @@ router.route('/:_id')
             })
     })
 
-//delete a user
-//input: the _id of the user
-//output: the deleted user
-router.route('')
-    .delete((req, res) => {
-        const { _id } = req.body;
-
-        User.findByIdAndDelete(_id)
-            .then(user => {
-                if (user) res.status(200).json(user);
-                else res.status(404).json({ errorMessage: 'User not found to delete' });
-            })
-            .catch(err => {
-                res.status(500).json({ errorMessage: 'Database failed to delete user' });
-            })
-    })
-
 module.exports = router;
