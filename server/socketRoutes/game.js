@@ -1,6 +1,7 @@
 const Game = require('../games/gameModel.js');
 const User = require('../users/userModel.js');
 
+//base route = '/game'
 module.exports = (namespace) => {
 
     function checkWinner(game) {

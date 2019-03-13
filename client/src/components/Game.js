@@ -4,6 +4,7 @@ import Confetti from 'react-confetti';
 
 import Header from './Header.js';
 import Board from './gameParts/Board.js';
+import Emotes from './Emotes.js';
 import Footer from './Footer.js';
 
 let game, userIsValid, updateAllState;
@@ -77,6 +78,7 @@ class Game extends Component {
                     <>
                     <Header allState={this.props.allState} updateAllState={this.props.updateAllState}/>
                     <Board allState={this.props.allState} updateAllState={this.props.updateAllState}/>
+                    <Emotes allState={this.props.allState} updateAllState={this.props.updateAllState}/>
                     <Footer allState={this.props.allState} updateAllState={this.props.updateAllState}/>
                     </>
                     : null

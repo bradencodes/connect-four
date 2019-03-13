@@ -1,6 +1,7 @@
 const Game = require('../games/gameModel.js');
 const User = require('../users/userModel.js');
 
+//base route = '/matching'
 module.exports = (namespace) => {
     //lobby consists of user_id as keys and their socket as values
     let lobby = {};
