@@ -65,86 +65,88 @@ GameSchema.pre('save', function(next) {
 
 ##### User Endpoints
 
-**Create a User**
+>**Create a User**
+>
+>**input**: none
+>
+>**output**: the new user object
+>
+>`.post('/user')`
 
-**input**: none
 
-**output**: the new user object
+>**Find a User**
+>
+>**input**: the _id of the user
+>
+>**output**: the user matching the _id
+>
+>`.get('/user/:_id')`
 
-`.post('/user')`
-
-**Find a User**
-
-**input**: the _id of the user
-
-**output**: the user matching the _id
-
-`.get('/user/:_id')`
 
 ##### Game Endpoints
 
-**Create a Game**
+>**Create a Game**
+>
+>**input**: the _id of 2 players through req.body
+>
+>**output**: the new game object
+>
+>`.post('/game')`
 
-**input**: the _id of 2 players through req.body
-
-**output**: the new game object
-
-`.post('/game')`
-
-**Find a Game**
-
-**input**: the _id of the game
-
-**output**: the matching game object
-
-`.get('/game/:_id')`
+>**Find a Game**
+>
+>**input**: the _id of the game
+>
+>**output**: the matching game object
+>
+>`.get('/game/:_id')`
 
 
 #### Socket<span>.i</span>o Events
 
 ##### Matching Events
 
-**joinLobby** (adds player to lobby)
+>**joinLobby** (adds player to lobby)
+>
+>**input**: the user joining the lobby
+>
+>**output**: none
+>
+>`io(/matching).emit('joinLobby', <user>)`
 
-**input**: the user joining the lobby
-
-**output**: none
-
-`io(/matching).emit('joinLobby', <user>)`
-
-**leave** (removes player from lobby)
-
-**input**: none
-
-**output**: none
-
-`io(/matching).emit('leave')`
+>**leave** (removes player from lobby)
+>
+>**input**: none
+>
+>**output**: none
+>
+>`io(/matching).emit('leave')`
 
 ##### Game Events
 
-**join room** (have the socket join a room)
+>**join room** (have the socket join a room)
+>
+>**input**: the name of the room
+>
+>**output**: none
+>
+>`io(/game).emit('join room', <room>)`
 
-**input**: the name of the room
+>**update** (update a game)
+>
+>**input**: the moving player's id, the id of their current game, the column they placed a token into
+>
+>**output**: the updated game
+>
+>`io(/game).emit('update', <player_id>, <game_id>, <column>)`
 
-**output**: none
-
-`io(/game).emit('join room', <room>)`
-
-**update** (update a game)
-
-**input**: the moving player's id, the id of their current game, the column they placed a token into
-
-**output**: the updated game
-
-`io(/game).emit('update', <player_id>, <game_id>, <column>)`
-
-**resign** (end game by assigning winner)
-
-**input**: token color of winner, id of the game
-
-**output**: none
-
-`io(/game).emit('resign', <winner>, <game_id>)`
+>**resign** (end game by assigning winner)
+>
+>**input**: token color of winner, id of the game
+>
+>**output**: none
+>
+>`io(/game).emit('resign', <winner>, <game_id>)`
 
 
 ## Run the Project Locally
