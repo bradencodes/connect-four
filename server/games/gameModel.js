@@ -8,6 +8,10 @@ const GameSchema = new mongoose.Schema({
     turn: String,
     winner: { type: String, default: "none" },
 
+    //each player's current emote
+    blackEmote: { type: String, default: "happy" },
+    redEmote: { type: String, default: "happy" },
+
     //a representation of the game board split into columns
     col1: [],
     col2: [],

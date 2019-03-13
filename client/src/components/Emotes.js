@@ -29,12 +29,15 @@ class Emotes extends Component {
     constructor() {
         super();
         this.state = {
-          myEmote: emotes['happy'],
-          oppEmote: happy
+            myEmote: null,
+            oppEmote: null
         }
-      }
+    }
 
     componentDidMount() {
+        this.setState({ myEmote: emotes[game[`${playerColor}Emote`]] });
+        this.setState({ oppEmote: emotes[game[`${playerColor === 'red' ? 'black' : 'red'}Emote`]] });
+
         socket = io(`${process.env.REACT_APP_API_URL}/game`);
 
         socket.emit('join room', game._id);
@@ -57,16 +60,16 @@ class Emotes extends Component {
                 
                 <div className='emote'>
                     <div className='body' onClick={() => this.changeFace()}>
-                        <img className='base' src={playerColor === 'red' ? redBase : blackBase}/>
-                        <img className='my-face' src={this.state.myEmote}/>
+                        <img className='base' src={playerColor === 'red' ? redBase : blackBase} alt='base' />
+                        <img className='my-face' src={this.state.myEmote} alt='face' />
                     </div>
                     <div className='text'>YOU</div>
                 </div>
 
                 <div className='emote'>
                     <div className='body'>
-                        <img className='base' src={playerColor === 'red' ? blackBase : redBase}/>
-                        <img className={this.state.oppEmote === sleep ? 'my-face' : 'opp-face'} src={this.state.oppEmote}/>
+                        <img className='base' src={playerColor === 'red' ? blackBase : redBase} alt='base' />
+                        <img className={this.state.oppEmote === sleep ? 'my-face' : 'opp-face'} src={this.state.oppEmote} alt='face' />
                     </div>
                     <div className='text'>OPP</div>
                 </div>
