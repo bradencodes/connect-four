@@ -1,6 +1,7 @@
 # Connect 4
 
 *made by Braden Walker*
+
 [Play the Game](https://connect-1234.netlify.com/)
 
 This app matches users anonymously for a game of Connect 4. Written using React.js, LESS, Express, Socket.io, and MongoDB. You can play against other random people on any device. Enjoy and have fun!
