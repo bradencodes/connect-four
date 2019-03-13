@@ -11,10 +11,6 @@ let user, userIsValid, updateAllState;
 class Matching extends Component {
 
     componentDidMount() {
-        user = this.props.allState.user;
-        userIsValid = this.props.allState.userIsValid;
-        updateAllState = this.props.updateAllState;
-
         //if a user isn't valid, send them to the home screen
         if (!userIsValid) {
             this.props.history.push('');
@@ -42,6 +38,10 @@ class Matching extends Component {
     }
 
     render() {
+        user = this.props.allState.user;
+        userIsValid = this.props.allState.userIsValid;
+        updateAllState = this.props.updateAllState;
+
         return (
             <div className="matching-screen">
 
