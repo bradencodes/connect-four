@@ -12,7 +12,7 @@ import sleep from '../assets/emotes/sleep.svg';
 import smirk from '../assets/emotes/smirk.svg';
 
 let socket;
-let user, game, playerColor, updateAllState;
+let user, game, playerColor, updateAllState, myEmote, oppEmote;
 
 const emotes = {
     cool: cool,
@@ -35,8 +35,8 @@ class Emotes extends Component {
     }
 
     componentDidMount() {
-        this.setState({ myEmote: emotes[game[`${playerColor}Emote`]] });
-        this.setState({ oppEmote: emotes[game[`${playerColor === 'red' ? 'black' : 'red'}Emote`]] });
+        myEmote = emotes[game[`${playerColor}Emote`]];
+        oppEmote = emotes[game[`${playerColor === 'red' ? 'black' : 'red'}Emote`]];
 
         socket = io(`${process.env.REACT_APP_API_URL}/game`);
 
@@ -44,9 +44,9 @@ class Emotes extends Component {
     }
 
     changeFace() {
-        const emoteArray = Object.values(emotes);
+        const emoteArray = Object.keys(emotes);
         let randomEmote = emoteArray[Math.floor(Math.random() * emoteArray.length)];
-        this.setState({myEmote: randomEmote});
+        socket.emit('emote', playerColor, game._id, randomEmote);
     }
 
     render (){
@@ -54,6 +54,8 @@ class Emotes extends Component {
         game = this.props.allState.game;
         playerColor = this.props.allState.playerColor;
         updateAllState = this.props.updateAllState;
+        myEmote = emotes[game[`${playerColor}Emote`]];
+        oppEmote = emotes[game[`${playerColor === 'red' ? 'black' : 'red'}Emote`]];
 
         return (
             <div className='emotes'>
@@ -61,7 +63,7 @@ class Emotes extends Component {
                 <div className='emote'>
                     <div className='body' onClick={() => this.changeFace()}>
                         <img className='base' src={playerColor === 'red' ? redBase : blackBase} alt='base' />
-                        <img className='my-face' src={this.state.myEmote} alt='face' />
+                        <img className='my-face' src={myEmote} alt='face' />
                     </div>
                     <div className='text'>YOU</div>
                 </div>
@@ -69,7 +71,7 @@ class Emotes extends Component {
                 <div className='emote'>
                     <div className='body'>
                         <img className='base' src={playerColor === 'red' ? blackBase : redBase} alt='base' />
-                        <img className={this.state.oppEmote === sleep ? 'my-face' : 'opp-face'} src={this.state.oppEmote} alt='face' />
+                        <img className={oppEmote === sleep ? 'my-face' : 'opp-face'} src={oppEmote} alt='face' />
                     </div>
                     <div className='text'>OPP</div>
                 </div>

@@ -73,6 +73,11 @@ module.exports = (namespace) => {
             socket.room = room;
         })
 
+        socket.on('emote', (playerColor, game_id, emote) => {
+            Game.findByIdAndUpdate(game_id, {[`${playerColor}Emote`]: emote}, {new: true})
+                .then(updatedGame => namespace.to(socket.room).emit('updated', updatedGame))
+                .catch(err => console.log("Database failed to update game"))
+        })
 
         //update a game when a player makes a move
         //input: the moving player's id, the id of their current game, the column they placed a token into
