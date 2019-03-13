@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import io from 'socket.io-client';
 import { withRouter } from 'react-router-dom';
 import logo from '../assets/logo.svg';
@@ -12,6 +11,7 @@ class Matching extends Component {
 
     componentDidMount() {
         //if a user isn't valid, send them to the home screen
+        //this could occur if the user refreshes the page
         if (!userIsValid) {
             this.props.history.push('');
             return;

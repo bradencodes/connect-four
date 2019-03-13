@@ -6,6 +6,8 @@ import Header from './Header.js';
 import Board from './gameParts/Board.js';
 import Footer from './Footer.js';
 
+let game, userIsValid, updateAllState;
+
 class Game extends Component {
 
     constructor(props) {
@@ -17,11 +19,11 @@ class Game extends Component {
     }
 
     componentDidMount() {
-        if (this.props.allState.userIsValid && !this.props.allState.game._id) {
+        if (userIsValid && !game._id) {
             this.props.history.push('/matching');
         }
 
-        if (!this.props.allState.userIsValid) {
+        if (!userIsValid) {
             this.props.history.push('');
         }
 
@@ -30,7 +32,7 @@ class Game extends Component {
 
         let playerColor = this.props.allState.game.red === this.props.allState.user._id ? 'red' : 'black';
 
-        this.props.updateAllState({ playerColor });
+        updateAllState({ playerColor });
     }
 
     componentWillUnmount() {
@@ -42,19 +44,22 @@ class Game extends Component {
     }
 
     confettiColors = () => {
-        let winner = this.props.allState.game.winner;
-        let blackShades = ['#333333', '#666666', '#111111']
-        let redShades = ['#aa0000', '#ff5555', '#ff0000']
-        let bothShades = ['#333333', '#666666', '#111111', '#aa0000', '#ff5555', '#ff0000']
+        let blackShades = ['#333333', '#666666', '#111111'];
+        let redShades = ['#aa0000', '#ff5555', '#ff0000'];
+        let bothShades = ['#333333', '#666666', '#111111', '#aa0000', '#ff5555', '#ff0000'];
 
-        if (winner === 'red') return redShades;
-        if (winner === 'black') return blackShades;
+        if (game.winner === 'red') return redShades;
+        if (game.winner === 'black') return blackShades;
         return bothShades;
     }
 
     render() {
-        let isGame = !!this.props.allState.game._id;
-        let isWinner = isGame && this.props.allState.game.winner !== 'none';
+        game = this.props.allState.game;
+        userIsValid = this.props.allState.userIsValid;
+        updateAllState = this.props.updateAllState;
+
+        let isGame = !!game._id;
+        let isWinner = isGame && game.winner !== 'none';
 
         return (
             <div className="game-container">

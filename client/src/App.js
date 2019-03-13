@@ -9,6 +9,7 @@ import Game from './components/Game.js';
 class App extends Component {
   constructor() {
     super();
+    //pass down this state for all components to use
     this.state = {
       user: {
         _id: localStorage.getItem('USER_ID'),
@@ -21,6 +22,7 @@ class App extends Component {
     }
   }
 
+  //pass down this function so components can update the state
   updateAllState = (update) => {
     this.setState(update);
   }
