@@ -10,10 +10,6 @@ let user, userIsValid, updateAllState;
 class Home extends Component {
 
     componentDidMount() {
-        user = this.props.allState.user;
-        userIsValid = this.props.allState.userIsValid;
-        updateAllState = this.props.updateAllState;
-
         //if the client isn't a user, create a user for the client
         if (!user._id) {
             axios.post(`${process.env.REACT_APP_API_URL}/user`)
@@ -63,10 +59,6 @@ class Home extends Component {
     }
 
     componentDidUpdate() {
-        user = this.props.allState.user;
-        userIsValid = this.props.allState.userIsValid;
-        updateAllState = this.props.updateAllState;
-
         //if the user's last game is still going, send the user to that endpoint
         if (user.games.length > 0) {
             //look at the last game in the user's game array
@@ -86,6 +78,11 @@ class Home extends Component {
     }
 
     render() {
+        //make props easier to use
+        user = this.props.allState.user;
+        userIsValid = this.props.allState.userIsValid;
+        updateAllState = this.props.updateAllState;
+
         return (
             <div className="home-screen">
 
