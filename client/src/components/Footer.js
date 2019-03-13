@@ -3,18 +3,19 @@ import { withRouter } from 'react-router-dom';
 import io from 'socket.io-client';
 
 let socket;
+let user, game;
 
 class Footer extends Component {
 
     componentDidMount() {
         socket = io(`${process.env.REACT_APP_API_URL}/game`);
 
-        socket.emit('join room', this.props.allState.game._id);
+        socket.emit('join room', game._id);
     }
 
     resign = () => {
-        let winner = this.props.allState.game.red === this.props.allState.user._id ? 'black' : 'red';
-        socket.emit('resign', winner, this.props.allState.game._id);
+        let winner = game.red === user._id ? 'black' : 'red';
+        socket.emit('resign', winner, game._id);
     }
 
     goHome = () => {
@@ -22,17 +23,18 @@ class Footer extends Component {
     }
 
     render() {
+        user = this.props.allState.user;
+        game = this.props.allState.game;
+
         return (
             <div className='footer-container' >
-                {this.props.allState.game.winner === 'none' ?
+                {game.winner === 'none' ?
                     <>
                     <div className='text'>Need to end the game early?</div>
                     <div className='button' onClick={() => this.resign()}>RESIGN</div>
                     </>
                     :
-                    <>
                     <div className='button' onClick={() => this.goHome()}>back to home</div>
-                    </>
                 }
             </div>
         )
