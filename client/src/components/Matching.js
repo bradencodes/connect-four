@@ -23,11 +23,11 @@ class Matching extends Component {
 
         socket = io(`${process.env.REACT_APP_API_URL}/matching`);
 
-        socket.emit('joinLobby', this.props.allState.user);
+        socket.emit('joinLobby', user);
 
         socket.on('matched', game => {
             socket.emit('leave');
-            this.props.updateAllState({ game: game });
+            updateAllState({ game: game });
             this.props.history.push(`/game/${game._id}`);
         })
     }
