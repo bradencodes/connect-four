@@ -63,6 +63,10 @@ class Home extends Component {
     }
 
     componentDidUpdate() {
+        user = this.props.allState.user;
+        userIsValid = this.props.allState.userIsValid;
+        updateAllState = this.props.updateAllState;
+
         //if the user's last game is still going, send the user to that endpoint
         if (user.games.length > 0) {
             //look at the last game in the user's game array
