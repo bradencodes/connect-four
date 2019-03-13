@@ -23,11 +23,15 @@ class Game extends Component {
             this.props.history.push('');
         }
 
+        //invalidate the user after confirming validation so that user will have to validate if
+        // directed away from the game
         updateAllState({ userIsValid: false });
 
+        //add a listener to update the window dimensions so confetti will always fill screen
         this.updateWindowDimensions();
         window.addEventListener('resize', this.updateWindowDimensions);
 
+        //store the player's color in their current game
         let playerColor = this.props.allState.game.red === this.props.allState.user._id ? 'red' : 'black';
 
         updateAllState({ playerColor });
@@ -41,6 +45,7 @@ class Game extends Component {
         this.setState({ width: window.innerWidth, height: window.innerHeight });
     }
 
+    //change the color of the confetti based on the winner
     confettiColors = () => {
         let blackShades = ['#333333', '#666666', '#111111'];
         let redShades = ['#aa0000', '#ff5555', '#ff0000'];
