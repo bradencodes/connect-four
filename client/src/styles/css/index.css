@@ -60,6 +60,12 @@ img {
   width: 100px;
   transition-duration: 0.2s;
 }
+@media (max-width: 600px) {
+  .home-screen .options .option .token {
+    width: 80px;
+    margin-bottom: -40px;
+  }
+}
 .home-screen .options .option .text {
   color: white;
   background: black;
@@ -68,9 +74,15 @@ img {
   border-radius: 1000px;
   text-align: center;
   padding: 5px 13px;
-  margin-top: 10px;
-  font-size: 2.2rem;
+  font-size: 2rem;
+  margin-top: 12px;
+  cursor: pointer;
   z-index: 1;
+}
+@media (max-width: 600px) {
+  .home-screen .options .option .text {
+    font-size: 1.5rem;
+  }
 }
 .matching-screen {
   width: 100%;
@@ -123,8 +135,22 @@ img {
   border-radius: 1000px;
   text-align: center;
   padding: 5px 13px;
+  font-size: 2rem;
+  margin-top: 12px;
+  cursor: pointer;
   font-size: 2.5rem;
+  margin-top: 0;
   z-index: -1;
+}
+@media (max-width: 600px) {
+  .matching-screen .loading-container .loading .text {
+    font-size: 1.5rem;
+  }
+}
+@media (max-width: 600px) {
+  .matching-screen .loading-container .loading .text {
+    font-size: 2.5rem;
+  }
 }
 .matching-screen .back {
   color: white;
@@ -135,8 +161,14 @@ img {
   text-align: center;
   padding: 5px 13px;
   font-size: 2rem;
-  margin-top: 10%;
+  margin-top: 12px;
   cursor: pointer;
+  margin-top: 10%;
+}
+@media (max-width: 600px) {
+  .matching-screen .back {
+    font-size: 1.5rem;
+  }
 }
 .header-container {
   width: 100%;
