@@ -8,10 +8,11 @@
     padding: 0 50px;
     position: relative;
 
-    .emote {
+    .my-emote {
         display: flex;
         flex-flow: column;
         align-items: center;
+        cursor: pointer;
 
         .body {
             position: relative;
@@ -23,7 +24,7 @@
                 width: 60px;
             }
 
-            @media (max-width: 450px) {
+            @media @tiny {
                 width: 50px;
             }
 
@@ -56,6 +57,11 @@
         }
     }
 
+    .opp-emote{
+        .my-emote;
+        cursor: default;
+    }
+
     .emote-menu {
         margin-left: 80px;
         margin-right: 35%;
@@ -66,7 +72,7 @@
         align-items: center;
         border-radius: 20px;
 
-        @media (max-width: 450px) {
+        @media @tiny {
             margin-left: 65px;
         }
 
@@ -103,7 +109,7 @@
                     width: 40px;
                 }
 
-                @media (max-width: 450px) {
+                @media @tiny {
                     width: 30px;
                 }
 
@@ -123,5 +129,9 @@
                 border-radius: 5px;
             }
         }
+    }
+
+    .hidden {
+        display: none;
     }
 }

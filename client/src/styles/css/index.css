@@ -458,36 +458,37 @@ img {
   padding: 0 50px;
   position: relative;
 }
-.emotes .emote {
+.emotes .my-emote {
   display: flex;
   flex-flow: column;
   align-items: center;
+  cursor: pointer;
 }
-.emotes .emote .body {
+.emotes .my-emote .body {
   position: relative;
   display: flex;
   flex-flow: column;
   align-items: center;
 }
 @media (max-width: 600px) {
-  .emotes .emote .body {
+  .emotes .my-emote .body {
     width: 60px;
   }
 }
 @media (max-width: 450px) {
-  .emotes .emote .body {
+  .emotes .my-emote .body {
     width: 50px;
   }
 }
-.emotes .emote .body .base {
+.emotes .my-emote .body .base {
   width: 100%;
 }
-.emotes .emote .body .my-face {
+.emotes .my-emote .body .my-face {
   position: absolute;
   top: 0;
   width: 100%;
 }
-.emotes .emote .body .opp-face {
+.emotes .my-emote .body .opp-face {
   position: absolute;
   top: 0;
   width: 100%;
@@ -498,7 +499,54 @@ img {
   filter: FlipH;
   -ms-filter: "FlipH";
 }
-.emotes .emote .text {
+.emotes .my-emote .text {
+  margin-top: 10px;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+.emotes .opp-emote {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  cursor: pointer;
+  cursor: default;
+}
+.emotes .opp-emote .body {
+  position: relative;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+}
+@media (max-width: 600px) {
+  .emotes .opp-emote .body {
+    width: 60px;
+  }
+}
+@media (max-width: 450px) {
+  .emotes .opp-emote .body {
+    width: 50px;
+  }
+}
+.emotes .opp-emote .body .base {
+  width: 100%;
+}
+.emotes .opp-emote .body .my-face {
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+.emotes .opp-emote .body .opp-face {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  -moz-transform: scaleX(-1);
+  -o-transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+  filter: FlipH;
+  -ms-filter: "FlipH";
+}
+.emotes .opp-emote .text {
   margin-top: 10px;
   font-size: 1.5rem;
   font-weight: bold;
@@ -567,6 +615,9 @@ img {
 .emotes .emote-menu .options .selected {
   background: #e2e2e2;
   border-radius: 5px;
+}
+.emotes .hidden {
+  display: none;
 }
 .footer-container {
   height: 150px;

@@ -26,6 +26,12 @@ const emotes = {
 }
 
 class Emotes extends Component {
+    constructor() {
+        super();
+        this.state = {
+          showMenu: true
+        }
+      }
 
     componentDidMount() {
         socket = io(`${process.env.REACT_APP_API_URL}/game`);
@@ -35,6 +41,10 @@ class Emotes extends Component {
 
     changeFace(emote) {
         socket.emit('emote', playerColor, game._id, emote);
+    }
+
+    toggleEmoteMenu() {
+        this.setState({ showMenu: !this.state.showMenu });
     }
 
     render (){
@@ -47,7 +57,7 @@ class Emotes extends Component {
         return (
             <div className='emotes'>
                 
-                <div className='emote'>
+                <div className='my-emote' onClick={() => this.toggleEmoteMenu()}>
                     <div className='body'>
                         <img className='base' src={playerColor === 'red' ? redBase : blackBase} alt='base' />
                         <img className='my-face' src={myEmote} alt='face' />
@@ -55,7 +65,7 @@ class Emotes extends Component {
                     <div className='text'>YOU</div>
                 </div>
 
-                <div className='emote-menu'>
+                <div className={this.state.showMenu ? 'emote-menu' : 'hidden'}>
                     <div className='pointer' />
                     <div className='options'>
                         {emoteArray.map(emote => {
@@ -70,7 +80,7 @@ class Emotes extends Component {
                     </div>
                 </div>
 
-                <div className='emote'>
+                <div className='opp-emote'>
                     <div className='body'>
                         <img className='base' src={playerColor === 'red' ? blackBase : redBase} alt='base' />
                         <img className={oppEmote === sleep ? 'my-face' : 'opp-face'} src={oppEmote} alt='face' />
