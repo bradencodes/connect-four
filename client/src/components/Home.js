@@ -3,7 +3,7 @@ import axios from 'axios';
 import { withRouter } from 'react-router-dom';
 import logo from '../assets/logo.svg';
 import redToken from '../assets/redToken.svg';
-import blackToken from '../assets/blackToken.svg';
+// import blackToken from '../assets/blackToken.svg';
 
 let user, userIsValid, updateAllState;
 

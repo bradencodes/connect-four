@@ -12,7 +12,7 @@ import sleep from '../assets/emotes/sleep.svg';
 import smirk from '../assets/emotes/smirk.svg';
 
 let socket;
-let user, game, playerColor, updateAllState, myEmote, oppEmote;
+let game, playerColor, myEmote, oppEmote;
 
 const emotes = {
     cool: cool,
@@ -26,46 +26,48 @@ const emotes = {
 }
 
 class Emotes extends Component {
-    constructor() {
-        super();
-        this.state = {
-            myEmote: null,
-            oppEmote: null
-        }
-    }
 
     componentDidMount() {
-        myEmote = emotes[game[`${playerColor}Emote`]];
-        oppEmote = emotes[game[`${playerColor === 'red' ? 'black' : 'red'}Emote`]];
-
         socket = io(`${process.env.REACT_APP_API_URL}/game`);
 
         socket.emit('join room', game._id);
     }
 
-    changeFace() {
-        const emoteArray = Object.keys(emotes);
-        let randomEmote = emoteArray[Math.floor(Math.random() * emoteArray.length)];
-        socket.emit('emote', playerColor, game._id, randomEmote);
+    changeFace(emote) {
+        socket.emit('emote', playerColor, game._id, emote);
     }
 
     render (){
-        user = this.props.allState.user;
         game = this.props.allState.game;
         playerColor = this.props.allState.playerColor;
-        updateAllState = this.props.updateAllState;
         myEmote = emotes[game[`${playerColor}Emote`]];
         oppEmote = emotes[game[`${playerColor === 'red' ? 'black' : 'red'}Emote`]];
+        let emoteArray = Object.keys(emotes);
 
         return (
             <div className='emotes'>
                 
                 <div className='emote'>
-                    <div className='body' onClick={() => this.changeFace()}>
+                    <div className='body'>
                         <img className='base' src={playerColor === 'red' ? redBase : blackBase} alt='base' />
                         <img className='my-face' src={myEmote} alt='face' />
                     </div>
                     <div className='text'>YOU</div>
+                </div>
+
+                <div className='emote-menu'>
+                    <div className='pointer' />
+                    <div className='options'>
+                        {emoteArray.map(emote => {
+                            return (
+                                <div className={myEmote === emotes[emote] ? 'option selected' : 'option'} 
+                                onClick={() => this.changeFace(emote)} key={emote}>
+                                    <img className='option-base' src={playerColor === 'red' ? redBase : blackBase} alt='base' />
+                                    <img className='option-face' src={emotes[emote]} alt='face' />
+                                </div>
+                            )
+                        })}
+                    </div>
                 </div>
 
                 <div className='emote'>
