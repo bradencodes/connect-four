@@ -1,0 +1,46 @@
+.loading-container {
+    width: 100%;
+    max-width: 800px;
+    height: 150px;
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+
+    .loading {
+        display: flex;
+        flex-flow: column;
+        cursor: default;
+
+        @keyframes loading {
+            from {
+                margin-left: 0;
+            }
+            to {
+                margin-left: 91px;
+                transform: rotate(79.4deg);
+            }
+        }
+
+        .token {
+            width: 100px;
+            animation-name: loading;
+            animation-duration: 2s;
+            animation-iteration-count: infinite;
+            animation-direction: alternate;
+            animation-timing-function: ease-in-out;
+        }
+
+        .text {
+            #common .button();
+            padding: 5px 20px;
+            font-size: 30px;
+            margin-top: 0;
+
+            @media @phone {
+                font-size: 30px;
+            }
+
+            z-index: -1;
+        }
+    }
+}

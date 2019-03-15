@@ -5,6 +5,8 @@ import logo from '../assets/logo.svg';
 import redToken from '../assets/redToken.svg';
 // import blackToken from '../assets/blackToken.svg';
 
+import Loading from './Loading.js';
+
 let user, userIsValid, updateAllState;
 
 class Home extends Component {
@@ -88,16 +90,20 @@ class Home extends Component {
 
                 <img className='logo' src={logo} alt='logo' />
 
-                <div className='options'>
-                    <div className='option' onClick={() => this.goToMatching()}>
-                        <img src={redToken} className='token' alt='token' />
-                        <div className='text'>PLAY GAME</div>
+                {!userIsValid ?
+                    <Loading />
+                    :
+                    <div className='options'>
+                        <div className='option' onClick={() => this.goToMatching()}>
+                            <img src={redToken} className='token' alt='token' />
+                            <div className='text'>PLAY GAME</div>
+                        </div>
+                        {/* <div className='option'>
+                            <img src={blackToken} className='token' alt='token' />
+                            <div className='text'>SPECTATE</div>
+                        </div> */}
                     </div>
-                    {/* <div className='option'>
-                        <img src={blackToken} className='token' alt='token' />
-                        <div className='text'>SPECTATE</div>
-                    </div> */}
-                </div>
+                }
             </div>
         );
     }
